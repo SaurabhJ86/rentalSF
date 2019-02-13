@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -22,25 +22,12 @@
 </div>
 
 
-<div class="container" id="browseByStay">
+<div class="container" id="browseByStay" style="background-color: grey; border-radius: 15px;">
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-12" style="margin: 30px">
 			<div class="row">
-			<h4>Please select one of the below</h4>
-				<div class="col-sm-3">
-					<div class="card card-block">
-						<div class="card-body">
-							<a href="">Flat</a>
-						</div>
-					</div>
-				<div class="col-sm-3">
-					<div class="card card-block">
-						<div class="card-body">
-							<a href="">PG</a>
-						</div>
-					</div>
-				</div>
-				</div>
+				<h4>What are you looking for?</h4>
+
 			</div>
 		</div>
 	</div>
@@ -48,27 +35,31 @@
 
 <br>
 <br>
+
 <div class="container" id="contactUs" style="background-color: #23BAC2;border-radius: 15px;">
 	<div class="row">
 		<div class="col-sm-12" style="margin: 30px">
 			<h4 style="font-family: cursive;" align="center">Contact Us to know more.</h4>
 			<br>
 			<br>
-			<form class="form-inline" method="POST" action="{% url 'getContact' %}">{% csrf_token %}
-				<div class="col-sm-4" >
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Your Name" name="name">
-					</div>					
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Contact Number" name="number">
-					</div>					
-				</div>
+			<form class="form-inline" method="POST" action="." >{% csrf_token %}
+				{{ form.as_p }}
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</div>
 	</div>
+</div>
+
+<br>
+<br>
+
+<div class="container" id="famousArea" style="background-color: grey;border-radius: 15px;">
+	<div class="row">
+		<div class="col-sm-12">
+			<h4 align="center">Sought out places in Pune </h4>
+		</div>
+	</div>
+	
 </div>
 
 

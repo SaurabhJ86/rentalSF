@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h3 align="center">Renter Saathi Rental Homes Pune.</h3>
+<br>
+
+<h4 align="center">Easiest way to rent a home in Pune</h4>
+
+<!-- <form method="POST" action="">
+	<input type="text" placeholder="Search in Pune..." name="">
+	<input type="submit" name="Submit">
+</form> -->
+
+<div class="container" id="browserByArea">
+	<div class="row">
+		<div class="col-sm-12">
+			<h4>Here you can select the areas in Hinjewadi.</h4>
+		</div>
+	</div>
+</div>
+
+
+<div class="container" id="browseByStay">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+			<h4>Please select one of the below</h4>
+				<div class="col-sm-3">
+					<div class="card card-block">
+						<div class="card-body">
+							<a href="">Flat</a>
+						</div>
+					</div>
+				<div class="col-sm-3">
+					<div class="card card-block">
+						<div class="card-body">
+							<a href="">PG</a>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+<br>
+<div class="container" id="contactUs" style="background-color: #23BAC2;border-radius: 15px;">
+	<div class="row">
+		<div class="col-sm-12" style="margin: 30px">
+			<h4 style="font-family: cursive;" align="center">Contact Us to know more.</h4>
+			<br>
+			<br>
+			<form class="form-inline" method="POST" action="{% url 'getContact' %}">{% csrf_token %}
+				<div class="col-sm-4" >
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Your Name" name="name">
+					</div>					
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Contact Number" name="number">
+					</div>					
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

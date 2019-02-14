@@ -92,12 +92,58 @@
 	
 </div>
 
-<div class="container" id="">
-	
+<br>
+<br>
+
+<div class="container" id="byCustomers">
+	<div class="row">
+		<div class="col-sm-3">
+			<h5 align="center">12</h5>
+			<h5 align="center">Apartments</h5>
+		</div>
+		<div class="col-sm-3">
+			<h5 align="center">200+</h5>
+			<h5 align="center">Happy Customers</h5>
+		</div>
+		<div class="col-sm-3">
+			<h5 align="center"></h5>
+		</div>
+	</div>
+</div>
+
+<br>
+<br>
+
+<div class="container" id="reviewsByUsers">
+	<div class="row">
+		<div class="col-sm-12">
+			<h4>Show Reviews Here.</h4>
+				<div id="google-reviews"></div>
+
+				<link rel="stylesheet" href="https://cdn.rawgit.com/stevenmonson/googleReviews/master/google-places.css">
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/gh/stevenmonson/googleReviews@6e8f0d794393ec657dab69eb1421f3a60add23ef/google-places.js"></script>
+				<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDegzuiAhiU0LkiQ1ZlsDjtaPYXrKrrn3M&libraries=places"></script>
+
+				<script>
+				jQuery(document).ready(function( $ ) {
+				   $("#google-reviews").googlePlaces({
+				        placeId: 'ChIJe9uT4NK7wjsRhfUKl5DwoWY' //Find placeID @: https://developers.google.com/places/place-id
+				      , render: ['reviews']
+				      , min_rating: 4
+				      , max_rows:4
+				   });
+				});
+				</script>
+
+				
+		</div>
+	</div>
 </div>
 
 <br>
 <br>
 <br>
+
 
 {% endblock %}

@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
+{% load static %}
 {% block content %}
+
+<style type="text/css">
+.button {
+  font: bold 15px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}	
+</style>
 
 <h3 align="center">Renter Saathi Rental Homes Pune.</h3>
 <br>
@@ -12,16 +26,24 @@
 	<input type="text" placeholder="Search in Pune..." name="">
 	<input type="submit" name="Submit">
 </form> -->
-
-<div class="container" id="browserByArea">
+<!-- Need to work on this. -->
+<!-- <div class="container" id="browserByArea">
 	<div class="row">
 		<div class="col-sm-12">
 			<h4>Here you can select the areas in Hinjewadi.</h4>
 		</div>
 	</div>
+</div> -->
+
+<div class="container" id="farmviewPics">
+	<div class="row">
+		<div class="col-sm-12">
+			<h3>Put the pics here.</h3>
+			<img src="{% static 'great_gatsby.jpeg' %}">
+			<img src="https://s3.ap-south-1.amazonaws.com/rentersaathi/media/updates/great_gatsby.jpeg">
+		</div>
+	</div>
 </div>
-
-
 <div class="container" id="browseByStay" style="background-color: grey; border-radius: 15px;">
 	<div class="row">
 		<div class="col-sm-12" style="margin: 30px">
@@ -117,7 +139,7 @@
 <div class="container" id="reviewsByUsers">
 	<div class="row">
 		<div class="col-sm-12">
-			<h4>Show Reviews Here.</h4>
+			<h5 align="center">Please check the reviews from our customers.</h5>
 				<div id="google-reviews"></div>
 
 				<link rel="stylesheet" href="https://cdn.rawgit.com/stevenmonson/googleReviews/master/google-places.css">
@@ -128,16 +150,19 @@
 				<script>
 				jQuery(document).ready(function( $ ) {
 				   $("#google-reviews").googlePlaces({
-				        placeId: 'ChIJe9uT4NK7wjsRhfUKl5DwoWY' //Find placeID @: https://developers.google.com/places/place-id
+				        placeId: 'ChIJe9uT4NK7wjsRhfUKl5DwoWY'
 				      , render: ['reviews']
 				      , min_rating: 4
-				      , max_rows:4
+				      , max_rows:5
 				   });
 				});
 				</script>
 
+				<br>
+				<a class="button" href="https://www.google.com/search?hl=en-IN&authuser=0&ei=RgZlXKiLJoiUwgOHsqHQBQ&q=rentersaathi+hinjewadi&oq=rentersaathi+hinjewadi&gs_l=psy-ab.3...162845.171174..171394...0.0..1.1137.6640.0j15j4-1j1j2j2......0....1..gws-wiz.......0i71j35i39j0i131j0j0i10j33i10.DHRZKjlTb90#lrd=0x3bc2bbd2e093db7b:0x66a1f090970af585,1,,,">See all Google Reviews</a>
 				
 		</div>
+		
 	</div>
 </div>
 

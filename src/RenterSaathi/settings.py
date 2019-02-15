@@ -123,3 +123,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+# DEFAULT_S3_PATH = "media"
+
+# MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
+# AWS Settings
+
+DEFAULT_FILE_STORAGE = 'RenterSaathi.utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'RenterSaathi.utils.StaticRootS3BotoStorage'
+
+AWS_ACCESS_KEY_ID = "AKIAJ4KXU5OXJMK7ZEYA"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = 'rentersaathi'
+AWS_DEFAULT_ACL = None
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}

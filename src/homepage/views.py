@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse
 
 from django.shortcuts import render
@@ -5,7 +6,7 @@ from django.views import generic
 
 # Create your views here.
 from .models import UserContact
-from .forms import ContactForm
+from .forms import ContactForm,ListPropertyForm
 def homepage(request):
 
 	form = ContactForm(request.POST or None)
@@ -38,3 +39,36 @@ class getContact(generic.View):
 		print(contact)
 
 		return HttpResponse("<h3>We have received your details.One of our team members will contact you shortly.</h3>")
+
+
+
+def owner(request):
+
+	templates = "owner.html"
+
+	context = {}
+
+	return render(request,templates,context)
+
+
+def listProperty(request):
+
+	form = ListPropertyForm(request.POST or None)
+
+	if form.is_valid():
+		form.save()
+		form = ListPropertyForm()
+		messages.success(request,"Details submitted successfully")
+
+	templates = "listProperty.html"
+
+	context = {
+		"form":form
+	}
+
+	return render(request,templates,context)
+
+
+
+
+

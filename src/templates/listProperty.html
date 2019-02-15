@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+{% if messages %}
+
+	{% for message in messages %}
+
+		<div class="alert alert-success">
+			<strong><p align="center">{{ message }}</p></strong>
+		</div>
+
+	{% endfor %}
+
+{% endif %}
+
+<h4 align="center">List Your Property here.</h4>
+<div class="container" id="listPropertyForm">
+	<div class="row">
+		<form method="POST" action=".">{% csrf_token %}
+			{{ form|crispy}}
+			<br>
+			<button class="btn btn-primary" type="submit">Submit</button>
+		</form>		
+	</div>
+</div>
+
+
+{% endblock %}

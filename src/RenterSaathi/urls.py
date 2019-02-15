@@ -16,10 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from homepage.views import homepage,getContact
+from homepage.views import (
+    homepage,
+    getContact,
+    listProperty,
+    owner)
 
 urlpatterns = [
 	path('', homepage, name='home'),
 	path('getContact/',getContact.as_view(),name='getContact'),
+	path('owner/',owner,name='owner'),
+    path('owner/listings/',listProperty,name='listProperty'),
     path('admin/', admin.site.urls),
 ]

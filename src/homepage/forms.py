@@ -41,6 +41,7 @@ class ListPropertyForm(forms.ModelForm):
 		}
 		exclude = ['timestamp','updated','is_active']
 
+	# Add the bootstrap class "form-control to each of the field of the form."
 	def __init__(self,*args,**kwargs):
 		super(ListPropertyForm,self).__init__(*args,**kwargs)
 		for field in iter(self.fields):

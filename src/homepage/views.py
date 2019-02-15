@@ -58,7 +58,8 @@ def listProperty(request):
 	if form.is_valid():
 		form.save()
 		form = ListPropertyForm()
-		messages.success(request,"Details submitted successfully")
+		# This will return the message to be displayed back to the end user.
+		messages.success(request,"Details submitted successfully.Our team will contact you shortly.")
 
 	templates = "listProperty.html"
 

@@ -19,11 +19,16 @@
 <h4 align="center">List Your Property here.</h4>
 <div class="container" id="listPropertyForm">
 	<div class="row">
-		<form method="POST" action=".">{% csrf_token %}
-			{{ form|crispy}}
-			<br>
-			<button class="btn btn-primary" type="submit">Submit</button>
-		</form>		
+		<div class="col-sm-6">
+			<form method="POST" action=".">{% csrf_token %}
+				{{ form|crispy}}
+				<br>
+				<button class="btn btn-primary" type="submit">Submit</button>
+			</form>					
+		</div>
+		<div class="col-sm-3 offset-sm-3">
+			<p>Or you can contact us at <br><strong>+91-8766995170</strong>.</p>
+		</div>
 	</div>
 </div>
 

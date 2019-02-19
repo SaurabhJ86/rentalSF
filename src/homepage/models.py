@@ -6,6 +6,9 @@ from django.utils import timezone
 def upload_image(instance,filename):
 	return "updates/{filename}".format(filename=filename)
 
+def upload_prop_image(instance,filename):
+	return "prop/{filename}".format(filename=filename)
+
 class UserContact(models.Model):
 	username 		= models.CharField(max_length=120)
 	contact 		= models.CharField(max_length=14)
@@ -44,3 +47,26 @@ class ListProperty(models.Model):
 
 	def __str__(self):
 		return self.ownername
+
+
+class PropertyListADCreation(models.Model):
+	property_type 	= models.CharField(max_length=120)
+	about_property 	= models.TextField()
+	rent 			= models.CharField(max_length=25)
+	deposit 		= models.CharField(max_length=10)
+	area 			= models.CharField(max_length=120)
+	timestamp 		= models.DateTimeField(auto_now_add=True)
+	updated 		= models.DateTimeField(auto_now=True)
+	is_active 		= models.BooleanField(default=False)
+	property_image 	= models.ImageField(upload_to=upload_prop_image,null=True,blank=True)
+	gender 			= models.CharField(max_length=30,default="Boys/Girls/Family")
+
+
+	def __str__(self):
+		return self.property_type
+
+
+
+
+
+

@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -123,8 +122,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+ 
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
 # DEFAULT_S3_PATH = "media"
 
@@ -137,6 +137,11 @@ STATICFILES_STORAGE = 'RenterSaathi.utils.StaticRootS3BotoStorage'
 AWS_ACCESS_KEY_ID = "AKIAJ4KXU5OXJMK7ZEYA"
 AWS_SECRET_ACCESS_KEY = "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"
 AWS_STORAGE_BUCKET_NAME = 'rentersaathi'
+S3_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_ROOT = MEDIA_URL
+STATIC_URL = S3_URL + 'static/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',

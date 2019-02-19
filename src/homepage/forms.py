@@ -17,8 +17,14 @@ class ContactForm(forms.ModelForm):
 		}
 	def __init__(self,*args,**kwargs):
 		super(ContactForm,self).__init__(*args,**kwargs)
-		for visible in self.visible_fields():
-			visible.field.widget.attrs['class'] = 'form-control'
+		# for visible in self.visible_fields():
+		for field in iter(self.fields):
+			if field == "contact":
+				self.fields[field].widget.attrs.update({"class":"form-control col-sm-3 .offset-sm-3"})
+			else:
+				self.fields[field].widget.attrs.update({"class":"form-control"})
+			# print(visible)
+			# visible.field.widget.attrs['class'] = 'form-control'
 
 
 	def clean_contact(self,*args,**kwargs):

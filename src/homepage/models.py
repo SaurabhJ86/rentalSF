@@ -60,6 +60,8 @@ class PropertyListADCreation(models.Model):
 	is_active 		= models.BooleanField(default=False)
 	property_image 	= models.ImageField(upload_to=upload_prop_image,null=True,blank=True)
 	gender 			= models.CharField(max_length=30,default="Boys/Girls/Family")
+	furnished 		= models.CharField(max_length=30,default="Fully Furnished")
+	bed_available 	= models.IntegerField(default=1)
 
 	def save(self,*args,**kwargs):
 		super(PropertyListADCreation,self).save(*args,**kwargs)

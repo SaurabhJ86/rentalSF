@@ -30,6 +30,28 @@
 
 {% else %}
 	{% if properties %}
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-10">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				    	<ul class="navbar-nav mr-auto">
+						     <li class="nav-item active">
+						        <a class="nav-link" href="{% url 'owner' %}">Shared Room</a>
+						     </li>
+						     <li class="nav-item active">
+						        <a class="nav-link" href="{% url 'owner' %}">Private Room</a>
+						     </li>
+						     <li class="nav-item active">
+						        <a class="nav-link" href="{% url 'owner' %}">House</a>
+						     </li>   
+				   		</ul>
+				  	</div>
+				</nav>				
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<div class="row">
 			<!-- <div class="col-sm-6"> -->
@@ -44,7 +66,8 @@
  -->							<div class="card-body">
 								<p>{{ property.about_property }}</p>
 								<p>For: {{ property.gender }}</p>
-								<p>Area: {{ property.area }}</p>	
+								<p>Area: {{ property.area }}</p>
+								<p>{{ property.furnished }} | {% if property.bed_available == 1 %} {{ property.bed_available }} bed available {% else %} {{ property.bed_available }} beds available {% endif %}</p>	
 							</div>
 							<div class="card-footer">
 								<div class="row">

@@ -1,12 +1,13 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 from django.shortcuts import render
 from django.views import generic
 
 # Create your views here.
-from .models import UserContact
-from .forms import ContactForm,ListPropertyForm
+from .models import PropertyListADCreation,UserContact
+from .forms import ContactForm,ListPropertyForm,PropertyListADForm
 def homepage(request):
 
 	form = ContactForm(request.POST or None)
@@ -70,6 +71,32 @@ def listProperty(request):
 	return render(request,templates,context)
 
 
+# @login_required
+def createListPropertyAD(request):
+	is_admin = False
+
+	get_properties = PropertyListADCreation.objects.all()
+
+	# This will make sure that only superuser can create the AD.
+	if request.user.is_superuser:
+		is_admin = True
+
+	form = PropertyListADForm(request.POST or None)
+
+	if form.is_valid():
+		form.save()
+		form = PropertyListADForm()
+
+		messages.success(request,"New Property AD has been posted successfully.Please refresh the page to see the AD.")
+
+	templates = "listPropertyAD.html"
+
+	context = {
+		"form":form,
+		"is_admin": is_admin,
+		"properties":get_properties,
+	}
 
 
+	return render(request,templates,context)
 

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import Textarea,TextInput
 
-from .models import UserContact,ListProperty
+from .models import UserContact,ListProperty,PropertyListADCreation
 
 
 class ContactForm(forms.ModelForm):
@@ -58,6 +58,23 @@ class ListPropertyForm(forms.ModelForm):
 		if len(contact) < 10:
 			raise forms.ValidationError("Please enter a valid Mobile Number")
 		return contact
+
+
+
+class PropertyListADForm(forms.ModelForm):
+	class Meta:
+		model = PropertyListADCreation
+		exclude = ['timestamp','updated']
+	def __init__(self,*args,**kwargs):
+		super(PropertyListADForm,self).__init__(*args,**kwargs)
+		for field in iter(self.fields):
+			self.fields[field].widget.attrs.update({"class":"form-control"})		
+
+	# def __init__(self,*args,**kwargs):
+	# 	super(PropertyListADCreation,self).__init__(*args,**kwargs)
+	# 	for field in iter(self.fields):
+	# 		self.fields[field].widget.attrs.updated({"class":"form-control"})
+
 
 
 

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+{% if messages %}
+
+	{% for message in messages %}
+
+		<div class="alert alert-success">
+			<strong><p align="center">{{ message }}</p></strong>
+		</div>
+
+	{% endfor  %}
+
+{% endif %}
+
+{% if is_admin %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<form method="POST">
+					{{ form|crispy }}{% csrf_token %}
+					<button class="btn btn-primary" type="submit">Submit</button>
+				</form>			
+			</div>
+		</div>
+	</div>
+
+{% else %}
+	{% if properties %}
+	<div class="container">
+		<div class="row">
+			<!-- <div class="col-sm-6"> -->
+			{% for property in properties %}
+				{% if property.is_active %}
+					<div class="col-sm-5">
+						<br>
+						<div class="card card-block">
+	<!-- 						{% if property.propert_image %}
+								<img class="card-img-top" src="{{ property.property_image.url }}">
+							{% endif %}
+ -->							<div class="card-body">
+								<p>{{ property.about_property }}</p>
+								<p>For: {{ property.gender }}</p>
+								<p>Area: {{ property.area }}</p>	
+							</div>
+							<div class="card-footer">
+								<div class="row">
+									<div class="col-sm-6">
+										<p>Rent: <strong>{{ property.rent }}</strong></p>
+									</div>
+									<div class="col-sm-6">
+										<p>Deposit: <strong>{{ property.deposit }}</strong></p>
+									</div>
+								</div>
+															
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+			<!-- </div> -->
+		</div>
+	</div>
+	{% else %}
+		<h3>No Property is available right now.</h3>
+	{% endif %}
+
+{% endif %}
+
+
+<br>
+<br>
+
+
+{% endblock %}

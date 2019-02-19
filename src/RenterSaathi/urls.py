@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from homepage.views import (
+    createListPropertyAD,
     homepage,
     getContact,
     listProperty,
@@ -30,6 +31,7 @@ urlpatterns = [
 	path('owner/',owner,name='owner'),
     path('owner/listings/',listProperty,name='listProperty'),
     path('admin/', admin.site.urls),
+    path('listProperty/',createListPropertyAD,name='listPropertyUser'),
 ]
 
 if settings.DEBUG:

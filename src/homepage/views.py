@@ -81,8 +81,15 @@ def createListPropertyAD(request):
 	if request.user.is_superuser:
 		is_admin = True
 
-	form = PropertyListADForm(request.POST or None)
+	get_room_type = request.GET.get("q")
+	if get_room_type:
+		print("Parameter has been passed")
+		print(get_room_type)
+		# get_properties = PropertyListADCreation.objects.filter(bed_available=1)
+		get_properties = get_properties.filter(room_type=get_room_type)
 
+	form = PropertyListADForm(request.POST or None)
+	print(get_properties)
 	if form.is_valid():
 		form.save()
 		form = PropertyListADForm()

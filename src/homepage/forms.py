@@ -70,11 +70,6 @@ class PropertyListADForm(forms.ModelForm):
 		for field in iter(self.fields):
 			self.fields[field].widget.attrs.update({"class":"form-control"})		
 
-	# def __init__(self,*args,**kwargs):
-	# 	super(PropertyListADCreation,self).__init__(*args,**kwargs)
-	# 	for field in iter(self.fields):
-	# 		self.fields[field].widget.attrs.updated({"class":"form-control"})
-
 
 
 

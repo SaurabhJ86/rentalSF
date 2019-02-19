@@ -53,7 +53,7 @@ class PropertyListADCreation(models.Model):
 	property_type 	= models.CharField(max_length=120)
 	about_property 	= models.TextField()
 	rent 			= models.CharField(max_length=25)
-	deposit 		= models.CharField(max_length=10)
+	deposit 		= models.CharField(max_length=40)
 	area 			= models.CharField(max_length=120)
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
@@ -62,6 +62,7 @@ class PropertyListADCreation(models.Model):
 	gender 			= models.CharField(max_length=30,default="Boys/Girls/Family")
 	furnished 		= models.CharField(max_length=30,default="Fully Furnished")
 	bed_available 	= models.IntegerField(default=1)
+	room_type 		= models.CharField(max_length=40,default="Shared Room")
 
 	def save(self,*args,**kwargs):
 		super(PropertyListADCreation,self).save(*args,**kwargs)

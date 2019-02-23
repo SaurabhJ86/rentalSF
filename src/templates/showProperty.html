@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<br>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card card-block">
+<!-- 				{% if get_object.property_image %}
+					<img class="card-img-top" src="{{ get_object.property_image.url }}">
+				{% endif %}	 -->			
+				<div class="card-body">
+					<h5>{{ get_object.about_property}}</h4>
+					<p>For {{ get_object.gender }} | {% if get_object.bed_available == 1 %} {{ get_object.bed_available }} bed available {% else %} {{ get_object.bed_available }} beds available {% endif %}</p>
+					<p>{{ get_object.furnished }}</p>
+				</div>
+				<div class="card-body">
+					<p>Features</p>
+					<div class="BedImgText" style="display: inline-block;">
+						<img src="https://img.icons8.com/ios/50/000000/sleeping-in-bed.png" alt="Images will be uploaded soon">
+						<p>Bed</p>
+					</div>
+					<div class="BathImgText" style="display: inline-block;margin: 100px;">
+						<img src="https://img.icons8.com/ios/50/000000/shower-filled.png" alt="Images will be uploaded soon">
+						<p>Bathroom</p>
+					</div>
+					<div class="SofaImgText" style="display: inline-block;">
+						<img src="https://img.icons8.com/ios/50/000000/sofa-with-buttons.png" alt="Images will be uploaded soon">
+						<p>Fully Furnished</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="card card-block">
+				<div class="card-body">
+					<h3>Schedule a Vist.</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card text-center">
+				<div class="card-header">
+					<ul class="nav nav-tabs card-header-tabs">
+						<li class="nav-item">
+							<a class="nav-link active" href="#">{{ get_object.room_type|capfirst }}</a>
+						</li>
+					</ul>
+				</div>
+				<div class="card card-body">
+					<div class="card-body">
+						<div class="container">
+							<p style="float: left;display: inline-block;">Rent </p>
+							<p style="float: right;display: inline-block;">{{ get_object.rent }} </p>							
+						</div>
+					</div>
+					<div class="card-body">
+						<p style="float: left;display: inline-block;">Security Deposit </p>
+						<p style="float: right;display: inline-block;">{{ get_object.deposit }} </p>							
+					</div>
+					<div class="card-body">
+						<p><strong>Rent Excludes</strong>: Food, Utilities and Other Miscellaneous living expenses</p>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card text-center">
+				<div class="card-body">
+					<h5 class="card-title">Terms of Stay</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+
+{% endblock %}

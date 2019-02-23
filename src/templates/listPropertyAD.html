@@ -4,6 +4,15 @@
 
 {% block content %}
 
+<style>
+	#propCard:hover
+	{
+		cursor: hand;
+		cursor: pointer;
+		opacity: .8;
+	}
+</style>
+
 {% if messages %}
 
 	{% for message in messages %}
@@ -54,18 +63,19 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container" id="propContainer">
 		<div class="row">
+			<a href="#" class="fill-div"></a>
 			<!-- <div class="col-sm-6"> -->
 			{% for property in properties %}
 				{% if property.is_active %}
 					<div class="col-sm-5">
 						<br>
-						<div class="card card-block">
-	<!-- 						{% if property.propert_image %}
+						<div class="card card-block" id="propCard" onclick="location.href='/listProperty/{{ property.id }}'">
+<!-- 							{% if property.property_image %}
 								<img class="card-img-top" src="{{ property.property_image.url }}">
-							{% endif %}
- -->							<div class="card-body">
+							{% endif %} -->
+							<div class="card-body">
 								<p>{{ property.about_property }}</p>
 								<p>For: {{ property.gender }}</p>
 								<p>Area: {{ property.area }}</p>
@@ -98,6 +108,15 @@
 
 <br>
 <br>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	// $(document).on("click","#propCard",function(e){
+	// 	console.log("Has been clicked")
+	// })
+})
 
+
+</script>
 
 {% endblock %}

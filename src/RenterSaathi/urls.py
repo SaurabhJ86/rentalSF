@@ -23,7 +23,9 @@ from homepage.views import (
     homepage,
     getContact,
     listProperty,
-    owner)
+    owner,
+    showProperty,
+    )
 
 urlpatterns = [
 	path('', homepage, name='home'),
@@ -32,6 +34,7 @@ urlpatterns = [
     path('owner/listings/',listProperty,name='listProperty'),
     path('admin/', admin.site.urls),
     path('listProperty/',createListPropertyAD,name='listPropertyUser'),
+    path('listProperty/<int:id>/',showProperty,name='showProperty'),
 ]
 
 if settings.DEBUG:

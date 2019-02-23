@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.views import generic
 
 # Create your views here.
@@ -83,13 +83,10 @@ def createListPropertyAD(request):
 
 	get_room_type = request.GET.get("q")
 	if get_room_type:
-		print("Parameter has been passed")
-		print(get_room_type)
 		# get_properties = PropertyListADCreation.objects.filter(bed_available=1)
 		get_properties = get_properties.filter(room_type=get_room_type)
 
 	form = PropertyListADForm(request.POST or None)
-	print(get_properties)
 	if form.is_valid():
 		form.save()
 		form = PropertyListADForm()
@@ -106,4 +103,18 @@ def createListPropertyAD(request):
 
 
 	return render(request,templates,context)
+
+
+def showProperty(request,id):
+
+	get_object = get_object_or_404(PropertyListADCreation,id=id)
+
+	template = "showProperty.html"
+
+	context = {
+		"get_object":get_object,
+	}
+
+
+	return render(request,template,context)
 

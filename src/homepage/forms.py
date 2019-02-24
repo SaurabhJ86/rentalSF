@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import Textarea,TextInput
 
-from .models import UserContact,ListProperty,PropertyListADCreation
+from .models import UserContact,ListProperty,PropertyListADCreation,UserScheduleVisit
 
 
 class ContactForm(forms.ModelForm):
@@ -72,6 +72,13 @@ class PropertyListADForm(forms.ModelForm):
 
 
 
+class ScheduleVisitForm(forms.ModelForm):
+	class Meta:
+		model = UserScheduleVisit
+		fields = ["name","contact","email"]
 
-
+	def __init__(self,*args,**kwargs):
+		super(ScheduleVisitForm,self).__init__(*args,**kwargs)
+		for field in iter(self.fields):
+			self.fields[field].widget.attrs.update({"class":"form-control"})
 

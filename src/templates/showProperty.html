@@ -5,6 +5,18 @@
 
 <br>
 
+{% if messages %}
+
+	{% for message in messages %}
+
+		<div class="alert alert-success">
+			<strong><p align="center">{{ message }}</p></strong>
+		</div>
+
+	{% endfor  %}
+
+{% endif %}
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-6">
@@ -35,11 +47,26 @@
 			</div>
 		</div>
 
-		<div class="col-sm-4">
-			<div class="card card-block">
-				<div class="card-body">
-					<h3>Schedule a Visit.</h3>
-				</div>
+		<div class="col-sm-4 offset-sm-2">
+			<button class="btn btn-info" id="schedulevist" data-toggle="modal" data-target="#scheduleVistModal">Schedule a Visit</button>
+		</div>
+	</div>
+</div>
+
+<div id="scheduleVistModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4>Please share the below details.</h4>
+			</div>
+			<div class="modal-body">
+				<form method="POST">{% csrf_token %}
+					{{ visitForm }}
+					<button class="btn btn-primary" id="SubmitVisitForm" type="submit">Submit</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -125,6 +152,39 @@
 <br>
 <br>
 <br>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
 
+		$("#SubmitVisitForm").on("click",function(e){
+			e.preventDefault()
+			var name = $("#id_name").val()
+			var contact = $("#id_contact").val()
+			var email = $("#id_email").val()
+			$.ajax({
+				type:"POST",
+				url:"{{ get_object.get_absolute_url }}",
+				data:{
+					csrfmiddlewaretoken:"{{ csrf_token }}",
+					"name":name,
+					"contact":contact,
+					"email":email,
+					"visit":true,
+				},
+				success:function(context){
+					if (context == "Received_Contact_Details")
+					{
+						console.log("Has been updates.")
+					}
+					if (context == "Error_Received")
+					{
+						console.log("Show User Error Message")
+					}
+				}
+			})
+		})
+	})
+</script>
 
 {% endblock %}

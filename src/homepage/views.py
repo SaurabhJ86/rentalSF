@@ -7,7 +7,7 @@ from django.views import generic
 
 # Create your views here.
 from .models import PropertyListADCreation,UserContact
-from .forms import ContactForm,ListPropertyForm,PropertyListADForm
+from .forms import ContactForm,ListPropertyForm,PropertyListADForm,ScheduleVisitForm,UserScheduleVisit
 def homepage(request):
 
 	form = ContactForm(request.POST or None)
@@ -85,7 +85,7 @@ def createListPropertyAD(request):
 	if get_room_type:
 		# get_properties = PropertyListADCreation.objects.filter(bed_available=1)
 		get_properties = get_properties.filter(room_type=get_room_type)
-
+	print(request.POST)
 	form = PropertyListADForm(request.POST or None)
 	if form.is_valid():
 		form.save()
@@ -107,12 +107,32 @@ def createListPropertyAD(request):
 
 def showProperty(request,id):
 
+	visit = request.POST.get("visit")
 	get_object = get_object_or_404(PropertyListADCreation,id=id)
+
+	visitForm = ScheduleVisitForm(request.POST or None)
+
+	update_message = ""
+
+	if visit == "true":
+		username = request.POST.get("name")
+		contact  = request.POST.get("contact")
+		email 	 = request.POST.get("email")
+
+		try:
+			UserScheduleVisit.objects.create(name=username,contact=contact,email=email)
+			update_message = "Received_Contact_Details"
+		except Exception as e:
+			update_message = "Error_Received"	
+
+		return HttpResponse(update_message)
+
 
 	template = "showProperty.html"
 
 	context = {
 		"get_object":get_object,
+		"visitForm":visitForm,
 	}
 
 

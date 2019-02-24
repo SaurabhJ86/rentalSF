@@ -1,5 +1,8 @@
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
+
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -67,10 +70,23 @@ class PropertyListADCreation(models.Model):
 	def save(self,*args,**kwargs):
 		super(PropertyListADCreation,self).save(*args,**kwargs)
 
+	def get_absolute_url(self,**kwargs):
+			return reverse("showProperty",kwargs={"id":self.id})
+
 	def __str__(self):
 		return self.property_type
 
 
+class UserScheduleVisit(models.Model):
+	name 			= models.CharField(max_length=120)
+	contact 		= PhoneNumberField()
+	email 			= models.EmailField()
+	timestamp 		= models.DateTimeField(auto_now_add=True)
+	updated 		= models.DateTimeField(auto_now=True)
+
+
+	def __str__(self):
+		return self.name
 
 
 

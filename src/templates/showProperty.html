@@ -23,7 +23,7 @@
 						<img src="https://img.icons8.com/ios/50/000000/sleeping-in-bed.png" alt="Images will be uploaded soon">
 						<p>Bed</p>
 					</div>
-					<div class="BathImgText" style="display: inline-block;margin: 100px;">
+					<div class="BathImgText" style="display: inline-block;margin: 50px;">
 						<img src="https://img.icons8.com/ios/50/000000/shower-filled.png" alt="Images will be uploaded soon">
 						<p>Bathroom</p>
 					</div>
@@ -38,7 +38,7 @@
 		<div class="col-sm-4">
 			<div class="card card-block">
 				<div class="card-body">
-					<h3>Schedule a Vist.</h3>
+					<h3>Schedule a Visit.</h3>
 				</div>
 			</div>
 		</div>
@@ -59,16 +59,47 @@
 				<div class="card card-body">
 					<div class="card-body">
 						<div class="container">
-							<p style="float: left;display: inline-block;">Rent </p>
-							<p style="float: right;display: inline-block;">{{ get_object.rent }} </p>							
+							<div class="row">
+								<div class="col-sm-4">
+									<p style="float: left;">Rent</p>
+								</div>
+								<div class="col-sm-4 offset-sm-4">
+									<p>{{ get_object.rent }}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="card-body">
-						<p style="float: left;display: inline-block;">Security Deposit </p>
-						<p style="float: right;display: inline-block;">{{ get_object.deposit }} </p>							
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-9">
+									<p style="float: left;">Security Deposit</p><br>
+									<p style="float: left;"><font size="2">Fully refundable if maintained in original condition.</font></p>
+								</div>
+								<div class="col-sm-2">
+									<p>{{ get_object.deposit }}</p>
+								</div>
+							</div>					
+						</div>
 					</div>
 					<div class="card-body">
-						<p><strong>Rent Excludes</strong>: Food, Utilities and Other Miscellaneous living expenses</p>
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-9">
+									<p style="float: left;">Extra Charges</p><br>
+									<p style="float: left;"><font size="2">One-time charges. For all legal requirements.</font></p>
+								</div>
+								<div class="col-sm-2">
+									<p>2000</p>
+								</div>
+							</div>								
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="container">
+							<p><strong style="float: left;">Rent Excludes</strong>: Food, Utilities and Other Miscellaneous living expenses</p>	
+						</div>
+						
 					</div>
 				</div>				
 			</div>

@@ -136,8 +136,8 @@ STATIC_URL = '/static/'
 DEFAULT_FILE_STORAGE = 'RenterSaathi.utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = 'RenterSaathi.utils.StaticRootS3BotoStorage'
 
-AWS_ACCESS_KEY_ID = "AKIAJ4KXU5OXJMK7ZEYA"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = os.environ.get("RS_AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("RS_AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = 'rentersaathi'
 S3_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME

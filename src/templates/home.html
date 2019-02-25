@@ -14,7 +14,30 @@
   border-right: 1px solid #333333;
   border-bottom: 1px solid #333333;
   border-left: 1px solid #CCCCCC;
-}	
+}
+.scrollmenu
+{
+	overflow: hidden;
+	white-space: nowrap;
+	/*height: 300px;*/
+}
+.scrollmenu:hover
+{
+	overflow: auto;
+}
+#rsImages:hover
+{
+	cursor: hand;
+	cursor: pointer;
+	opacity: .8;
+}
+body .modal-dialog { /* Width */
+    max-width: 70%;
+    width: auto !important;
+    display: inline-block;
+    margin-left: 200px;
+}
+
 </style>
 
 <h3 align="center">Renter Saathi Rental Homes Pune.</h3>
@@ -35,14 +58,18 @@
 	</div>
 </div> -->
 
-<div class="container" id="farmviewPics">
+<!-- <div class="container" id="farmviewPics">
 	<div class="row">
 		<div class="col-sm-12">
-			<h3>Put the pics here.</h3>
-			<img src="{{ MEDIA_URL }}updates/">
+			{% for img in images %}
+				<img src="{{ img.image.url}}">
+			{% endfor %}
 		</div>
 	</div>
-</div>
+</div> -->
+
+
+
 <div class="container" id="browseByStay" style="background-color: grey; border-radius: 15px;">
 	<div class="row">
 		<div class="col-sm-12" style="margin: 30px">
@@ -74,7 +101,7 @@
 <br>
 <br>
 
-<div class="container" id="famousArea" style="background-color: grey;border-radius: 15px;overflow-x: auto;height: 350px;">
+<!-- <div class="container" id="famousArea" style="background-color: grey;border-radius: 15px;overflow-x: auto;height: 350px;">
 	<h4 align="center" style="font-family: cursive;margin: 20px">Sought out places in Pune for IT </h4>
 	<div class="row">
 		<div class="col-sm-3">
@@ -111,10 +138,51 @@
 		</div>
 	</div>
 	
-</div>
+</div> -->
 
 <br>
 <br>
+
+<div class="container" id="farmviewPics">
+	<div class="container">
+		<h4 align="center">Communtiy @ RenterSaathi</h4>
+	</div>
+	<div class="scrollmenu">
+		{% for img in images %}
+			<img src="{{ img.image.url }}" id="rsImages" data-toggle="modal" data-target="#showImagesModal">
+		{% endfor %}
+	</div>
+</div>
+<br>
+<br>
+
+<div id="showImagesModal" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="overflow-y: initial !important;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 align="center">Community @RenterSaathi</h3>
+			</div>
+			<div class="modal-body" style="height: 500px;overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-8">
+							<!-- <img src=""> -->
+							<h4>Something here as well</h4>
+						</div>
+						<div class="col-sm-4">
+							{% for img in images %}
+								<img src="{{ img.image.url }}" id="modalrsImages">
+							{% endfor %}					
+						</div>						
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div class="container" id="byCustomers">
 	<div class="row">
@@ -168,6 +236,14 @@
 <br>
 <br>
 <br>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#rsImages").on("click",function(){
+			console.log("Button has been pushed.")
+			// $("#showImagesModal").show()
+		})
+	})
+</script>
 
 {% endblock %}

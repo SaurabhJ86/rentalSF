@@ -13,7 +13,9 @@ from io import BytesIO
 # Create your models here.
 
 def upload_image(instance,filename):
-	return "updates/{filename}".format(filename=filename)
+	get_unique_id = uuid.uuid1()
+	filename = str(get_unique_id) + filename	
+	return "community/{filename}".format(filename=filename)
 
 """
 This will make sure that image being uploaded to S3 has a unique filename otherwise it will replace the existing
@@ -29,8 +31,7 @@ class UserContact(models.Model):
 	contact 		= models.CharField(max_length=14)
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
-	resolved 		= models.BooleanField(default=False)
-
+	resolved 		= models.BooleanField(default=False)	
 
 	def __str__(self):
 		return self.username
@@ -45,6 +46,32 @@ class RSImages(models.Model):
 	class Meta:
 		verbose_name = "Image"
 		verbose_name_plural = "Images"
+
+	__original_image = None
+	
+	def __init__(self,*args,**kwargs):
+		super(RSImages,self).__init__(*args,**kwargs)
+		self.__original_image = self.image
+	
+	def save(self,*args,**kwargs):
+		if self.image:
+			if self.image == self.__original_image:
+				pass
+			else:
+				pil_image_obj 	= Image.open(self.image)
+				new_image 		= resizeimage.resize_cover(pil_image_obj,[300,200])
+
+				new_image_io 	= BytesIO()
+				new_image.save(new_image_io,format="JPEG")
+
+				temp_name 		= self.image.name
+
+				self.image.save(
+					temp_name,
+					content 	= ContentFile(new_image_io.getvalue()),
+					save 		= False
+				)
+		super(RSImages,self).save(*args,**kwargs)			
 
 	def __str__(self):
 		return self.name

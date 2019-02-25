@@ -6,10 +6,11 @@ from django.shortcuts import render,get_object_or_404
 from django.views import generic
 
 # Create your views here.
-from .models import PropertyListADCreation,UserContact
+from .models import PropertyListADCreation,UserContact,RSImages
 from .forms import ContactForm,ListPropertyForm,PropertyListADForm,ScheduleVisitForm,UserScheduleVisit
 def homepage(request):
 
+	images = RSImages.objects.all()
 	form = ContactForm(request.POST or None)
 	templates = "home.html"
 
@@ -19,6 +20,7 @@ def homepage(request):
 
 	context = {
 		"form":form,
+		"images":images,
 	}
 
 	return render(request,templates,context)
@@ -27,11 +29,7 @@ def homepage(request):
 
 class getContact(generic.View):
 
-	def post(self,request,*args,**kwargs):
-		# if form.is_valid():
-			# username = request.POST.get("name")
-			# contact = request.POST.get("number")
-			# UserContact.create(username=username,contact=contact)			
+	def post(self,request,*args,**kwargs):			
 		username = request.POST.get("name")
 		contact = request.POST.get("number")
 		UserContact.objects.create(username=username,contact=contact)
@@ -85,7 +83,7 @@ def createListPropertyAD(request):
 	if get_room_type:
 		# get_properties = PropertyListADCreation.objects.filter(bed_available=1)
 		get_properties = get_properties.filter(room_type=get_room_type)
-	print(request.POST)
+
 	form = PropertyListADForm(request.POST or None)
 	if form.is_valid():
 		form.save()

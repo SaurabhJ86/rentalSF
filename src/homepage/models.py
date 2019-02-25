@@ -6,8 +6,6 @@ from django.utils import timezone
 
 from phonenumber_field.modelfields import PhoneNumberField
 
-from sorl.thumbnail import get_thumbnail,ImageField
-
 from PIL import Image
 from resizeimage import resizeimage
 from django.core.files.base import ContentFile
@@ -75,29 +73,42 @@ class PropertyListADCreation(models.Model):
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
 	is_active 		= models.BooleanField(default=False)
-	# property_image 	= models.ImageField(upload_to=upload_prop_image,null=True,blank=True)
-	property_image 	= ImageField(upload_to=upload_prop_image,null=True,blank=True)
+	property_image 	= models.ImageField(upload_to=upload_prop_image,null=True,blank=True)
 	gender 			= models.CharField(max_length=30,default="Boys/Girls/Family")
 	furnished 		= models.CharField(max_length=30,default="Fully Furnished")
 	bed_available 	= models.IntegerField(default=1)
-	room_type 		= models.CharField(max_length=40,default="Shared Room")
+	room_type 		= models.CharField(max_length=40,default="shared")
 
-	# Resize the image to size.
+	__original_image = None
+
+	"""
+	1.This will hold the original image name, so that we can compare if the property_image has been changed.
+	"""
+	def __init__(self,*args,**kwargs):
+		super(PropertyListADCreation,self).__init__(*args,**kwargs)
+		self.__original_image = self.property_image
+
+	# Resize the image to a particular size.
 	def save(self,*args,**kwargs):
 		if self.property_image:
-			pil_image_obj 	= Image.open(self.property_image)
-			new_image 		= resizeimage.resize_cover(pil_image_obj,[400,300])
+			# 2.If there is no change in Step 1, then we will pass, otherwise we will upload the new image.
+			# This way it allows you to save the upload bandwidth.
+			if self.property_image == self.__original_image:
+				pass
+			else:
+				pil_image_obj 	= Image.open(self.property_image)
+				new_image 		= resizeimage.resize_cover(pil_image_obj,[400,300])
 
-			new_image_io 	= BytesIO()
-			new_image.save(new_image_io,format="JPEG")
+				new_image_io 	= BytesIO()
+				new_image.save(new_image_io,format="JPEG")
 
-			temp_name 		= self.property_image.name
+				temp_name 		= self.property_image.name
 
-			self.property_image.save(
-				temp_name,
-				content 	= ContentFile(new_image_io.getvalue()),
-				save 		= False
-			)
+				self.property_image.save(
+					temp_name,
+					content 	= ContentFile(new_image_io.getvalue()),
+					save 		= False
+				)
 		super(PropertyListADCreation,self).save(*args,**kwargs)
 
 	def get_absolute_url(self,**kwargs):

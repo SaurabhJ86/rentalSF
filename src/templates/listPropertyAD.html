@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% load sorl_thumbnail %}
 
 
 {% block content %}
@@ -44,13 +43,14 @@
 	<div class="container" id="adContainer">
 		<div class="row">
 			<div class="col-sm-10">
-				<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
 				<nav class="navbar navbar-expand-lg navbar-light navbar-light" style="background-color: #e3f2fd;">
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#roomTypes" aria-controls="roomTypes" aria-expanded="false" aria-label="Toggle navigation">
+					    <span class="navbar-toggler-icon"></span>
+					  </button>
+					<div class="collapse navbar-collapse" id="roomTypes">
 				    	<ul class="navbar-nav mr-auto">
 						     <li class="nav-item active">
 						        <a class="nav-link" href="{% url 'listPropertyUser' %}?q=shared">Shared Room</a>
-						        <!-- <button class="btn btn-primary">Shared Room</button> -->
 						     </li>
 						     <li class="nav-item active">
 						        <a class="nav-link" href="{% url 'listPropertyUser' %}?q=private">Private Room</a>

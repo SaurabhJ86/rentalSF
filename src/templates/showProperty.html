@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
+
+<style type="text/css">
+	#showVisitSuccessMessage,#showViistErrorMessage
+	{
+		display: none;
+		position: absolute;
+	}
+</style>
 
 <br>
 
@@ -21,9 +29,9 @@
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="card card-block">
-<!-- 				{% if get_object.property_image %}
+				{% if get_object.property_image %}
 					<img class="card-img-top" src="{{ get_object.property_image.url }}">
-				{% endif %}	 -->			
+				{% endif %}				
 				<div class="card-body">
 					<h5>{{ get_object.about_property}}</h4>
 					<p>For {{ get_object.gender }} | {% if get_object.bed_available == 1 %} {{ get_object.bed_available }} bed available {% else %} {{ get_object.bed_available }} beds available {% endif %}</p>
@@ -57,11 +65,18 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4>Please share the below details.</h4>
+				<div class="alert alert-success" id="showVisitSuccessMessage">
+  					<strong>Success!</strong> Details have been recevied successfully.
+				</div>
+				<div class="alert alert-danger" id="showViistErrorMessage">
+  					<strong>Error!</strong> Something wrong happened. Please try after later.
+				</div>
+				<h5 align="center">Please share your contact details</h5>
 			</div>
 			<div class="modal-body">
-				<form method="POST">{% csrf_token %}
-					{{ visitForm }}
+				<form  style="text-align: center;" method="POST">{% csrf_token %}
+					{{ visitForm|crispy }}
+					<br>
 					<button class="btn btn-primary" id="SubmitVisitForm" type="submit">Submit</button>
 				</form>
 			</div>
@@ -156,7 +171,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-
+		$("#showVisitSuccessMessage").hide()
 		$("#SubmitVisitForm").on("click",function(e){
 			e.preventDefault()
 			var name = $("#id_name").val()
@@ -175,11 +190,17 @@
 				success:function(context){
 					if (context == "Received_Contact_Details")
 					{
-						console.log("Has been updates.")
+						$("#showVisitSuccessMessage").fadeIn()
+						setTimeout(function(){
+							$("#showVisitSuccessMessage").fadeOut()
+						},5000)
 					}
 					if (context == "Error_Received")
 					{
-						console.log("Show User Error Message")
+						$("#showViistErrorMessage").fadeIn()
+						setTimeout(function(){
+							$("#showViistErrorMessage").fadeOut()
+						},5000)						
 					}
 				}
 			})

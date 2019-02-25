@@ -120,7 +120,8 @@ def showProperty(request,id):
 		email 	 = request.POST.get("email")
 
 		try:
-			UserScheduleVisit.objects.create(name=username,contact=contact,email=email)
+			new_contact = "+91" + contact[-10:]
+			UserScheduleVisit.objects.create(name=username,contact=new_contact,email=email)
 			update_message = "Received_Contact_Details"
 		except Exception as e:
 			update_message = "Error_Received"	

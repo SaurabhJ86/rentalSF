@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     #Third party
     'crispy_forms',
     'phonenumber_field',
+    'sorl.thumbnail',
+    
     # Local app
     'homepage',
 ]

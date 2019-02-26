@@ -9,7 +9,7 @@ from django.views import generic
 from .models import PropertyListADCreation,UserContact,RSImages
 from .forms import ContactForm,ListPropertyForm,PropertyListADForm,ScheduleVisitForm,UserScheduleVisit
 def homepage(request):
-
+	print("Was this called home")
 	images = RSImages.objects.all()
 	form = ContactForm(request.POST or None)
 	templates = "home.html"

@@ -31,6 +31,12 @@
 	cursor: pointer;
 	opacity: .8;
 }
+#modalrsImages:hover
+{
+	cursor: hand;
+	cursor: pointer;
+	opacity: .8;
+}
 body .modal-dialog { /* Width */
     max-width: 70%;
     width: auto !important;
@@ -149,7 +155,9 @@ body .modal-dialog { /* Width */
 	</div>
 	<div class="scrollmenu">
 		{% for img in images %}
-			<img src="{{ img.image.url }}" id="rsImages" data-toggle="modal" data-target="#showImagesModal">
+			{% if img.id != 9 %}
+				<img src="{{ img.image.url }}" id="rsImages" data-toggle="modal" data-target="#showImagesModal">
+			{% endif %}
 		{% endfor %}
 	</div>
 </div>
@@ -165,13 +173,14 @@ body .modal-dialog { /* Width */
 			<div class="modal-body" style="height: 500px;overflow-y: scroll;">
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-8">
-							<!-- <img src=""> -->
-							<h4>Something here as well</h4>
+						<div class="col-sm-8" id="modalrsMainImage">
+							<img src="{{ images.4.image.url }}" class="img-responsive">
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-4" id="modalrsImages">
 							{% for img in images %}
-								<img src="{{ img.image.url }}" id="modalrsImages">
+								{% if img.id != 9 %}
+									<img src="{{ img.image.url }}" value="{{ img.content }}">
+								{% endif %}
 							{% endfor %}					
 						</div>						
 					</div>
@@ -239,9 +248,19 @@ body .modal-dialog { /* Width */
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#rsImages").on("click",function(){
-			console.log("Button has been pushed.")
-			// $("#showImagesModal").show()
+		// $("#rsImages").on("click",function(){
+		// 	console.log("Button has been pushed.")
+		// 	// $("#showImagesModal").show()
+		// })
+		// $("#modalrsImages").on("click",function(){
+		// 	console.log("Is being being called")
+		// 	// $("#modalrsMainImage").append("<h3>Updated here.</h3>")
+		// })
+		$("#modalrsImages").on({
+			click:function(e)
+			{
+				console.log("Click has been called")
+			}
 		})
 	})
 </script>

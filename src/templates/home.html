@@ -37,6 +37,10 @@
 	cursor: pointer;
 	opacity: .8;
 }
+#modalrsImages
+{
+
+}
 body .modal-dialog { /* Width */
     max-width: 70%;
     width: auto !important;
@@ -153,11 +157,9 @@ body .modal-dialog { /* Width */
 	<div class="container">
 		<h4 align="center">Communtiy @ RenterSaathi</h4>
 	</div>
-	<div class="scrollmenu">
+	<div class="scrollmenu" id="rsImagesHolder">
 		{% for img in images %}
-			{% if img.id != 9 %}
-				<img src="{{ img.image.url }}" id="rsImages" data-toggle="modal" data-target="#showImagesModal">
-			{% endif %}
+			<img src="{{ img.image.url }}" id="rsImages" value="{{ img.rsimagesmain_set.all.0.image.url }}" data-toggle="modal" data-target="#showImagesModal">
 		{% endfor %}
 	</div>
 </div>
@@ -182,7 +184,7 @@ body .modal-dialog { /* Width */
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button class="btn btn-primary" style="margin: 0 auto;background-color: #23BAC2" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -243,6 +245,14 @@ body .modal-dialog { /* Width */
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$("#rsImagesHolder > img").on({
+			click:function(e)
+			{
+				get_img_src = $(this).attr("value")
+				$("#displayMainImage").attr("src",get_img_src)
+
+			}
+		})
 		$("#modalrsImagesParent > img").on({
 			click:function(e)
 			{

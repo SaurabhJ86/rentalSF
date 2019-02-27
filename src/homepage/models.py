@@ -65,10 +65,8 @@ class RSImages(models.Model):
 				pass
 			else:
 				pil_image_obj 	= Image.open(self.image)
-				new_image 		= resizeimage.resize_cover(pil_image_obj,[300,200])
-				# main_image 		= resizeimage.resize_cover(pil_image_obj,[600,500])
-				# new_image 		= resizeimage.resize_contain(pil_image_obj,[600,500])
-				# new_image 		= resizeimage.resize_contain(pil_image_obj,[1000,450])
+				# new_image 		= resizeimage.resize_cover(pil_image_obj,[300,200])
+				new_image 		= resizeimage.resize_cover(pil_image_obj,[275,200])
 
 				new_image_io 	= BytesIO()
 				# m_new_image_io 	= BytesIO()
@@ -114,8 +112,9 @@ class RSImagesMain(models.Model):
 			if self.image == self.__original_image:
 				pass
 			else:
-				image_open = Image.open(self.image)
-				new_image = resizeimage.resize_contain(image_open,[600,500])
+				image_open 		= Image.open(self.image)
+				# new_image 		= resizeimage.resize_contain(image_open,[600,500])
+				new_image 		= resizeimage.resize_cover(image_open,[600,500])
 
 				new_image_io = BytesIO()
 				new_image.save(new_image_io,format="JPEG")
@@ -126,7 +125,7 @@ class RSImagesMain(models.Model):
 					temp_name,
 					content 	= ContentFile(new_image_io.getvalue()),
 					save 		= False)
-									
+
 		super(RSImagesMain,self).save(*args,**kwargs)
 
 class ListProperty(models.Model):

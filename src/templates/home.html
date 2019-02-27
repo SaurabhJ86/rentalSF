@@ -166,10 +166,16 @@ body .modal-dialog { /* Width */
 
 <div id="showImagesModal" class="modal fade" role="dialog">
 	<div class="modal-dialog" style="overflow-y: initial !important;">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h3 align="center">Community @RenterSaathi</h3>
-			</div>
+		<div class="modal-content" style="width: 1000px;">
+<!-- 			<div class="modal-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 class="text-center" style="font-family: serif;color: #540e7f;">Community @RenterSaathi</h3>
+						</div>
+					</div>
+				</div>
+			</div> -->
 			<div class="modal-body" >
 				<div class="container">
 					<div class="row">
@@ -178,7 +184,7 @@ body .modal-dialog { /* Width */
 						</div>
 						<div class="col-sm-4" id="modalrsImagesParent" style="height: 500px;overflow-y: scroll;">
 							{% for img in images %}
-								<img src="{{ img.image.url }}" value="{{ img.rsimagesmain_set.all.0.image.url }}" id="modalrsImages">
+								<img src="{{ img.image.url }}" value="{{ img.rsimagesmain_set.all.0.image.url }}" id="modalrsImages" class="img-responsive pull-right">
 							{% endfor %}					
 						</div>						
 					</div>

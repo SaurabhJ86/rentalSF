@@ -37,9 +37,9 @@
 	cursor: pointer;
 	opacity: .8;
 }
-#modalrsImages
+#modalrsImages:focus
 {
-
+	opacity: .8;
 }
 body .modal-dialog { /* Width */
     max-width: 70%;
@@ -177,7 +177,7 @@ body .modal-dialog { /* Width */
 						</div>
 						<div class="col-sm-4" id="modalrsImagesParent" style="height: 500px;overflow-y: scroll;">
 							{% for img in images %}
-								<img src="{{ img.image.url }}" value="{{ img.rsimagesmain_set.all.0.image.url }}" id="modalrsImages" class="img-responsive pull-right">
+								<img src="{{ img.image.url }}" value="{{ img.rsimagesmain_set.all.0.image.url }}" id="modalrsImages" class="img-responsive pull-right" tabindex="0">
 							{% endfor %}					
 						</div>						
 					</div>

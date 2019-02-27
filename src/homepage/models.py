@@ -10,7 +10,8 @@ from PIL import Image
 from resizeimage import resizeimage
 from django.core.files.base import ContentFile
 from io import BytesIO
-# Create your models here.
+
+from .utils import resize_image
 
 def upload_image(instance,filename):
 	get_unique_id = uuid.uuid1()
@@ -47,7 +48,6 @@ class RSImages(models.Model):
 	name 			= models.CharField(max_length=120,null=True,blank=True)
 	content 		= models.TextField(null=True,blank=True)
 	image 			= models.ImageField(upload_to=upload_image,null=True,blank=True)
-	# main_image 		= models.ImageField(upload_to=main_upload_image,null=True,blank=True)
 
 	class Meta:
 		verbose_name = "Image"
@@ -64,28 +64,9 @@ class RSImages(models.Model):
 			if self.image == self.__original_image:
 				pass
 			else:
-				pil_image_obj 	= Image.open(self.image)
-				# new_image 		= resizeimage.resize_cover(pil_image_obj,[300,200])
-				new_image 		= resizeimage.resize_cover(pil_image_obj,[275,200])
 
-				new_image_io 	= BytesIO()
-				# m_new_image_io 	= BytesIO()
-				new_image.save(new_image_io,format="JPEG")
-				# main_image.save(m_new_image_io,format="JPEG")
-
-				temp_name 		= self.image.name
-				# m_temp_name 	= self.main_image.name
-
-				self.image.save(
-					temp_name,
-					content 	= ContentFile(new_image_io.getvalue()),
-					save 		= False
-				)
-				# self.main_image.save(
-				# 	m_temp_name,
-				# 	content 	= ContentFile(m_new_image_io.getvalue()),
-				# 	save 		= False
-				# )
+				resize_image(self.image,[275,200])
+				
 		super(RSImages,self).save(*args,**kwargs)			
 
 	def __str__(self):
@@ -112,19 +93,7 @@ class RSImagesMain(models.Model):
 			if self.image == self.__original_image:
 				pass
 			else:
-				image_open 		= Image.open(self.image)
-				# new_image 		= resizeimage.resize_contain(image_open,[600,500])
-				new_image 		= resizeimage.resize_cover(image_open,[600,500])
-
-				new_image_io = BytesIO()
-				new_image.save(new_image_io,format="JPEG")
-
-				temp_name 		= self.image.name
-
-				self.image.save(
-					temp_name,
-					content 	= ContentFile(new_image_io.getvalue()),
-					save 		= False)
+				resize_image(self.image,[600,500])
 
 		super(RSImagesMain,self).save(*args,**kwargs)
 
@@ -175,18 +144,8 @@ class PropertyListADCreation(models.Model):
 				pass
 			else:
 				pil_image_obj 	= Image.open(self.property_image)
-				new_image 		= resizeimage.resize_cover(pil_image_obj,[400,300])
+				resize_image(self.property_image,[400,300])
 
-				new_image_io 	= BytesIO()
-				new_image.save(new_image_io,format="JPEG")
-
-				temp_name 		= self.property_image.name
-
-				self.property_image.save(
-					temp_name,
-					content 	= ContentFile(new_image_io.getvalue()),
-					save 		= False
-				)
 		super(PropertyListADCreation,self).save(*args,**kwargs)
 
 	def get_absolute_url(self,**kwargs):

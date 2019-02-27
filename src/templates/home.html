@@ -170,13 +170,13 @@ body .modal-dialog { /* Width */
 			<div class="modal-header">
 				<h3 align="center">Community @RenterSaathi</h3>
 			</div>
-			<div class="modal-body" style="height: 500px;overflow-y: scroll;">
+			<div class="modal-body" >
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-8" id="modalrsMainImage">
+						<div class="col-sm-8" id="modalrsMainImage" style="overflow: hidden;">
 							<img src="" id="displayMainImage" class="img-responsive">
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-4" id="modalrsImagesParent" style="height: 500px;overflow-y: scroll;">
 							{% for img in images %}
 								<img src="{{ img.image.url }}" value="{{ img.rsimagesmain_set.all.0.image.url }}" id="modalrsImages">
 							{% endfor %}					
@@ -246,8 +246,7 @@ body .modal-dialog { /* Width */
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var image = document.getElementById("#displayMainImage")
-		$("#modalrsImages").on({
+		$("#modalrsImagesParent > img").on({
 			click:function(e)
 			{
 				get_img_src = $(this).attr("value")

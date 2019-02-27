@@ -47,7 +47,7 @@ class RSImages(models.Model):
 	name 			= models.CharField(max_length=120,null=True,blank=True)
 	content 		= models.TextField(null=True,blank=True)
 	image 			= models.ImageField(upload_to=upload_image,null=True,blank=True)
-	main_image 		= models.ImageField(upload_to=main_upload_image,null=True,blank=True)
+	# main_image 		= models.ImageField(upload_to=main_upload_image,null=True,blank=True)
 
 	class Meta:
 		verbose_name = "Image"
@@ -66,33 +66,68 @@ class RSImages(models.Model):
 			else:
 				pil_image_obj 	= Image.open(self.image)
 				new_image 		= resizeimage.resize_cover(pil_image_obj,[300,200])
-				main_image 		= resizeimage.resize_cover(pil_image_obj,[600,500])
+				# main_image 		= resizeimage.resize_cover(pil_image_obj,[600,500])
 				# new_image 		= resizeimage.resize_contain(pil_image_obj,[600,500])
 				# new_image 		= resizeimage.resize_contain(pil_image_obj,[1000,450])
 
 				new_image_io 	= BytesIO()
-				m_new_image_io 	= BytesIO()
+				# m_new_image_io 	= BytesIO()
 				new_image.save(new_image_io,format="JPEG")
-				main_image.save(m_new_image_io,format="JPEG")
+				# main_image.save(m_new_image_io,format="JPEG")
 
 				temp_name 		= self.image.name
-				m_temp_name 	= self.main_image.name
+				# m_temp_name 	= self.main_image.name
 
 				self.image.save(
 					temp_name,
 					content 	= ContentFile(new_image_io.getvalue()),
 					save 		= False
 				)
-				self.main_image.save(
-					m_temp_name,
-					content 	= ContentFile(m_new_image_io.getvalue()),
-					save 		= False
-				)
+				# self.main_image.save(
+				# 	m_temp_name,
+				# 	content 	= ContentFile(m_new_image_io.getvalue()),
+				# 	save 		= False
+				# )
 		super(RSImages,self).save(*args,**kwargs)			
 
 	def __str__(self):
 		return self.name
 
+
+class RSImagesMain(models.Model):
+	image_ID 	= models.ForeignKey(RSImages,on_delete=models.CASCADE)
+	image 		= models.ImageField(upload_to=main_upload_image,null=True,blank=True)
+	image_name 	= models.CharField(max_length=120,null=True,blank=True)
+	timestamp 	= models.DateTimeField(auto_now=True)
+	updated 	= models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.image_name
+
+	__original_image = None
+	def __init__(self,*args,**kwargs):
+		super(RSImagesMain,self).__init__(*args,**kwargs)
+		__original_image = self.image
+
+	def save(self,*args,**kwargs):
+		if self.image:
+			if self.image == self.__original_image:
+				pass
+			else:
+				image_open = Image.open(self.image)
+				new_image = resizeimage.resize_contain(image_open,[600,500])
+
+				new_image_io = BytesIO()
+				new_image.save(new_image_io,format="JPEG")
+
+				temp_name 		= self.image.name
+
+				self.image.save(
+					temp_name,
+					content 	= ContentFile(new_image_io.getvalue()),
+					save 		= False)
+									
+		super(RSImagesMain,self).save(*args,**kwargs)
 
 class ListProperty(models.Model):
 	ownername 		= models.CharField(max_length=120)

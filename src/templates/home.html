@@ -174,13 +174,11 @@ body .modal-dialog { /* Width */
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-8" id="modalrsMainImage">
-							<img src="{{ images.4.image.url }}" class="img-responsive">
+							<img src="" id="displayMainImage" class="img-responsive">
 						</div>
-						<div class="col-sm-4" id="modalrsImages">
+						<div class="col-sm-4">
 							{% for img in images %}
-								{% if img.id != 9 %}
-									<img src="{{ img.image.url }}" value="{{ img.content }}">
-								{% endif %}
+								<img src="{{ img.image.url }}" value="{{ img.rsimagesmain_set.all.0.image.url }}" id="modalrsImages">
 							{% endfor %}					
 						</div>						
 					</div>
@@ -248,18 +246,12 @@ body .modal-dialog { /* Width */
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// $("#rsImages").on("click",function(){
-		// 	console.log("Button has been pushed.")
-		// 	// $("#showImagesModal").show()
-		// })
-		// $("#modalrsImages").on("click",function(){
-		// 	console.log("Is being being called")
-		// 	// $("#modalrsMainImage").append("<h3>Updated here.</h3>")
-		// })
+		var image = document.getElementById("#displayMainImage")
 		$("#modalrsImages").on({
 			click:function(e)
 			{
-				console.log("Click has been called")
+				get_img_src = $(this).attr("value")
+				$("#displayMainImage").attr("src",get_img_src)
 			}
 		})
 	})

@@ -112,6 +112,9 @@ def showProperty(request,id):
 	visit = request.POST.get("visit")
 	get_object = get_object_or_404(PropertyListADCreation,id=id)
 
+	for r in get_object.offers.split(","):
+		print(r)
+
 	visitForm = ScheduleVisitForm(request.POST or None)
 
 	update_message = ""

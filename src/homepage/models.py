@@ -154,6 +154,12 @@ class PropertyListADCreation(models.Model):
 	def get_absolute_url(self,**kwargs):
 			return reverse("showProperty",kwargs={"id":self.id})
 
+	def get_features(self):
+		return self.features.split("\n")
+
+	def get_offers(self):
+		return self.offers.split("\n")
+
 	def __str__(self):
 		return self.property_type
 

@@ -66,7 +66,7 @@ class RSImages(models.Model):
 			else:
 
 				resize_image(self.image,[275,200])
-				
+
 		super(RSImages,self).save(*args,**kwargs)			
 
 	def __str__(self):
@@ -123,6 +123,9 @@ class PropertyListADCreation(models.Model):
 	property_image 	= models.ImageField(upload_to=upload_prop_image,null=True,blank=True)
 	gender 			= models.CharField(max_length=30,default="Boys/Girls/Family")
 	furnished 		= models.CharField(max_length=30,default="Fully Furnished")
+	features 		= models.TextField(null=True,blank=True)
+	offer 			= models.BooleanField(default=False)
+	offers 			= models.TextField(null=True,blank=True)
 	bed_available 	= models.IntegerField(default=1)
 	room_type 		= models.CharField(max_length=40,default="shared")
 

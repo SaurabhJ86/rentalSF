@@ -63,7 +63,24 @@ body .modal-dialog { /* Width */
 {
 
 }
-
+/*#shareroom
+{
+	transition: transform .2s;
+}
+#shareroom:hover
+{
+	transform: scale(1.1);
+	cursor: pointer;
+}*/
+#listRoomOptions .mx-auto
+{
+	transition: transform .2s
+}
+#listRoomOptions .mx-auto:hover
+{
+	transform: scale(1.1);
+	cursor: pointer;
+}	
 </style>
 
 {% if messages %}
@@ -82,10 +99,20 @@ body .modal-dialog { /* Width */
 
 {% endif %}
 
-<h3 align="center">Renter Saathi Rental Homes Pune.</h3>
 <br>
 
-<h4 align="center">Easiest way to rent a home in Pune</h4>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-7" style="padding: 100px;">
+			<h4>Easiest way to rent a home in Pune</h4>
+		</div>
+		<div class="col-sm-5">
+			<img src="https://img.icons8.com/windows/200/000000/home.png">
+		</div>
+	</div>
+</div>
+<!-- <h4 align="center">Easiest way to rent a home in Pune</h4> -->
 
 <!-- <form method="POST" action="">
 	<input type="text" placeholder="Search in Pune..." name="">
@@ -140,21 +167,21 @@ body .modal-dialog { /* Width */
 
 <div class="container" style="background-color: #23BAC2;border-radius: 15px;">
 	<h4 align="center" style="padding-top: 25px;">Something for Everybody</h4>
-	<div class="row" style="padding: 50px;">
+	<div class="row" style="padding: 50px;" id="listRoomOptions">
 		<div class="col-sm-3">
-			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/occupied-bed.png">
+			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/occupied-bed.png" value="shared">
 			<h5 align="center">Shared Rooms</h5>
 		</div>
 		<div class="col-sm-3">
-			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/room-filled.png">
+			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/room-filled.png" value="private">
 			<h5 align="center">Private Rooms</h5>
 		</div>
 		<div class="col-sm-3">
-			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/home-page-filled.png">
+			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/home-page-filled.png" value="flat">
 			<h5 align="center">Flat/House</h5>
 		</div>
 		<div class="col-sm-3">
-			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/3-star-hotel.png">
+			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/3-star-hotel.png" value="hostel">
 			<h5 align="center">Hostel</h5>
 		</div>		
 	</div>
@@ -173,8 +200,35 @@ body .modal-dialog { /* Width */
 		{% endfor %}
 	</div>
 </div>
+
 <br>
 <br>
+
+
+<div class="container" id="HomeOwners" style="background-color: #23BAC2;border-radius: 15px;">
+	<h4 align="center" style="padding-top: 25px;">Why RenterSaathi For Home Owners</h4>
+	<div class="row" style="padding: 50px;">
+		<div class="col-sm-3">
+			<a href="#" style="color: black;">List Your Property</a>
+		</div>
+		<div class="col-sm-3">
+			<h5>Get verified tenants</h5>
+			<p>Police verification,Paper Work,House Visit, all will be handled by us.</p>
+		</div>
+		<div class="col-sm-3">
+			<h5>Get Rent on Time</h5>
+			<p>Rent will be in the account by 7th of every month. No late rent or rent collection hassle.</p>
+		</div>
+		<div class="col-sm-3">
+			<h5>Property Maintenance</h5>
+			<p>Periodic maintenance for repair and cleaning of the house.</p>
+		</div>
+	</div>
+</div>
+
+<br>
+<br>
+
 
 <div id="showImagesModal" class="modal fade" role="dialog">
 	<div class="modal-dialog" style="overflow-y: initial !important;">
@@ -239,26 +293,7 @@ body .modal-dialog { /* Width */
 <br>
 <br>
 
-<div class="container" id="HomeOwners" style="background-color: #23BAC2;border-radius: 15px;">
-	<h4 align="center" style="padding-top: 25px;">Why RenterSaathi For Home Owners</h4>
-	<div class="row" style="padding: 50px;">
-		<div class="col-sm-3">
-			<a href="#" style="color: black;">List Your Property</a>
-		</div>
-		<div class="col-sm-3">
-			<h5>Get verified tenants</h5>
-			<p>Police verification,Paper Work,House Visit, all will be handled by us.</p>
-		</div>
-		<div class="col-sm-3">
-			<h5>Get Rent on Time</h5>
-			<p>Rent will be in the account by 7th of every month. No late rent or rent collection hassle.</p>
-		</div>
-		<div class="col-sm-3">
-			<h5>Property Maintenance</h5>
-			<p>Periodic maintenance for repair and cleaning of the house.</p>
-		</div>
-	</div>
-</div>
+
 
 <!-- <div class="container" id="reviewsByUsers">
 	<div class="row">
@@ -317,12 +352,13 @@ body .modal-dialog { /* Width */
 				$("#backend_messages").fadeOut()
 			},5000)
 		}
-		// $("#submitUserContactDetails").on({
-		// 	click:function(e)
-		// 	{
-
-		// 	}
-		// })
+		$("#listRoomOptions > div > img").on({
+			click:function(e)
+			{
+				get_room_type = $(this).attr("value")
+				window.location.href = "http://127.0.0.1:8000/listProperty/" + "?q=" + get_room_type
+			}
+		})
 	})
 </script>
 

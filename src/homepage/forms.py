@@ -11,20 +11,21 @@ class ContactForm(forms.ModelForm):
 			'username',
 			'contact'
 		]
+		labels = {
+			"username":"",
+			"contact":""
+		}
 		widgets = {
-			'username': Textarea(attrs={"cols":30,"rows":1,"placeholder":"Your Name"}),
-			'contact': Textarea(attrs={"cols":30,"rows":1,"placeholder":"Mobile Number"}),
+			'username': TextInput(attrs={"placeholder":"Your Name"}),
+			'contact': TextInput(attrs={"placeholder":"Mobile Number"}),
 		}
 	def __init__(self,*args,**kwargs):
 		super(ContactForm,self).__init__(*args,**kwargs)
-		# for visible in self.visible_fields():
 		for field in iter(self.fields):
 			if field == "contact":
 				self.fields[field].widget.attrs.update({"class":"form-control col-sm-3 .offset-sm-3"})
 			else:
-				self.fields[field].widget.attrs.update({"class":"form-control"})
-			# print(visible)
-			# visible.field.widget.attrs['class'] = 'form-control'
+				self.fields[field].widget.attrs.update({"class":"form-control col-sm-3 .offset-sm-3"})
 
 
 	def clean_contact(self,*args,**kwargs):

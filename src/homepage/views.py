@@ -14,8 +14,13 @@ def homepage(request):
 	templates = "home.html"
 
 	if form.is_valid():
-			form.save()
-			form = ContactForm()
+			try:
+				form.save()
+				form = ContactForm()
+				messages.success(request,"Details submitted successfully.Our team will contact you shortly.")
+			except:
+				messages.error(request,"Something went wrong. Please try later.")
+				form = ContactForm()
 
 	context = {
 		"form":form,

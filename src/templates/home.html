@@ -19,7 +19,7 @@
 {
 	overflow: hidden;
 	white-space: nowrap;
-	/*height: 300px;*/
+	height: 220px;
 }
 .scrollmenu:hover
 {
@@ -43,7 +43,8 @@
 }
 #modalrsImages:focus
 {
-	opacity: .8;
+	opacity: .7;
+	outline: none;
 }
 body .modal-dialog { /* Width */
     max-width: 70%;
@@ -51,8 +52,35 @@ body .modal-dialog { /* Width */
     display: inline-block;
     margin-left: 200px;
 }
+#backend_messages
+{
+	position: absolute;
+	z-index: 999;
+	left: 0px;
+	right: 0px;
+}
+#listOptions > img
+{
+
+}
 
 </style>
+
+{% if messages %}
+
+	{% for message in messages %}
+		{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+		<div class="alert alert-danger" id="backend_messages">
+			<strong><p align="center">{{ message }}</p></strong>
+		</div>
+		{% else %}
+		<div class="alert alert-success" id="backend_messages">
+			<strong><p align="center">{{ message }}</p></strong>
+		</div>
+		{% endif %}
+	{% endfor %}
+
+{% endif %}
 
 <h3 align="center">Renter Saathi Rental Homes Pune.</h3>
 <br>
@@ -81,37 +109,30 @@ body .modal-dialog { /* Width */
 		</div>
 	</div>
 </div> -->
-
-
-
-<div class="container" id="browseByStay" style="background-color: grey; border-radius: 15px;">
-	<div class="row">
-		<div class="col-sm-12" style="margin: 30px">
-			<div class="row">
-				<h4>What are you looking for?</h4>
-
-			</div>
-		</div>
-	</div>
-</div>
-
 <br>
 <br>
 
-<div class="container" id="contactUs" style="background-color: #23BAC2;border-radius: 15px;">
-	<div class="row">
-		<div class="col-sm-12" style="margin: 30px">
-			<h4 style="font-family: cursive;" align="center">Contact Us to know more.</h4>
-			<br>
-			<br>
-			<form class="form-inline" method="POST" action="." >{% csrf_token %}
-				{{ form.as_p }}
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</form>
+<div class="container" style="background-color: #23BAC2;border-radius: 15px;">
+	<h4 align="center" style="padding-top: 25px;">Why RenterSaathi</h4>
+	<div class="row" style="padding: 25px;">
+		<div class="col-sm-3" id="listOptions">
+			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/armchair.png">
+			<h5 align="center" style="padding-top: 5px;">Great Furniture</h4>
+		</div>
+		<div class="col-sm-3">
+			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/wifi-filled.png">
+			<h5 align="center">High Speed Wi-Fi</h4>	
+		</div>
+		<div class="col-sm-3">
+			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/cash-in-hand-filled.png">
+			<h5 align="center">Two month deposit</h4>
+		</div>
+		<div class="col-sm-3">
+			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/hand-with-pen.png">
+			<h5 align="center">Hassle Free PaperWork</h5>
 		</div>
 	</div>
 </div>
-
 
 
 <br>
@@ -154,6 +175,26 @@ body .modal-dialog { /* Width */
 	</div>
 </div>
 
+<br>
+<br>
+
+<div class="container" id="contactUs" style="background-color: #23BAC2;border-radius: 15px;height: 300px;">
+	<div class="row">
+		<div class="col-sm-12" style="margin: 30px">
+			<h4 style="font-family: cursive;" align="center">Contact Us to know more.</h4>
+			<br>
+			<br>
+			<form class="form-inline" method="POST" action="." >{% csrf_token %}
+				{{ form }}
+				<button type="submit" class="btn btn-primary" id="submitUserContactDetails" style="margin-left: 25px;">Submit</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<br>
+<br>
+
 <div class="container" id="byCustomers">
 	<div class="row">
 		<div class="col-sm-3">
@@ -173,7 +214,7 @@ body .modal-dialog { /* Width */
 <br>
 <br>
 
-<div class="container" id="reviewsByUsers">
+<!-- <div class="container" id="reviewsByUsers">
 	<div class="row">
 		<div class="col-sm-12">
 			<h5 align="center">Please check the reviews from our customers.</h5>
@@ -201,7 +242,7 @@ body .modal-dialog { /* Width */
 		</div>
 		
 	</div>
-</div>
+</div> -->
 
 <br>
 <br>
@@ -224,6 +265,18 @@ body .modal-dialog { /* Width */
 				$("#displayMainImage").attr("src",get_img_src)
 			}
 		})
+		if($("#backend_messages").is(":visible"))
+		{
+			setTimeout(function(){
+				$("#backend_messages").fadeOut()
+			},5000)
+		}
+		// $("#submitUserContactDetails").on({
+		// 	click:function(e)
+		// 	{
+
+		// 	}
+		// })
 	})
 </script>
 

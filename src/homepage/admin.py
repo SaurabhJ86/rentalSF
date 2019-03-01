@@ -2,12 +2,13 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import (
-		UserContact,
-		RSImages,
+		ImagesPropertyListing,
 		ListProperty,
 		PropertyListADCreation,
-		UserScheduleVisit,
+		RSImages,
 		RSImagesMain,
+		UserContact,
+		UserScheduleVisit,
 	)
 
 
@@ -17,3 +18,4 @@ admin.site.register(ListProperty)
 admin.site.register(PropertyListADCreation)
 admin.site.register(UserScheduleVisit)
 admin.site.register(RSImagesMain)
+admin.site.register(ImagesPropertyListing)

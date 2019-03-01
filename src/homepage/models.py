@@ -21,7 +21,12 @@ def upload_image(instance,filename):
 def main_upload_image(instance,filename):
 	get_unique_id = uuid.uuid1()
 	filename = str(get_unique_id) + filename
-	return "main_img/{filename}".format(filename=filename)	
+	return "main_img/{filename}".format(filename=filename)
+
+def list_Property_images(instance,filename):
+	get_unique_id = uuid.uuid1()
+	filename = str(get_unique_id) + filename
+	return "property_images/{filename}".format(filename=filename)	
 
 """
 This will make sure that image being uploaded to S3 has a unique filename otherwise it will replace the existing
@@ -162,7 +167,33 @@ class PropertyListADCreation(models.Model):
 
 	def __str__(self):
 		return self.property_type
+"""
+This model class will be used to create multiple images for the above model.
+"""
+class ImagesPropertyListing(models.Model):
+	image_for 		= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE)
+	image 			= models.ImageField(upload_to='list_Property_images',null=True,blank=True)
+	image_content 	= models.CharField(max_length=200,null=True,blank=True)
+	timestamp 		= models.DateTimeField(auto_now=True)
+	updated 		= models.DateTimeField(auto_now_add=True)
 
+	__original_image = None
+
+	def __init__(self,*args,**kwars):
+		super(ImagesPropertyListing,self).__init__(*args,**kwargs)
+		self.__original_image = self.image
+
+
+	def save(self,*args,**kwargs):
+		if self.__original_image == self.image:
+			pass
+		else:
+			pil_image_obj = Image.open(self.image)
+			resize_image(self.image,[400,300])
+		super(ImagesPropertyListing,self).save(*args,**kwargs)
+
+	def __str__(self):
+		return self.content
 
 class UserScheduleVisit(models.Model):
 	name 			= models.CharField(max_length=120)

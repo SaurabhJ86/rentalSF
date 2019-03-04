@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import PhoneNumberField
 
 from PIL import Image
 from resizeimage import resizeimage
@@ -160,10 +160,12 @@ class PropertyListADCreation(models.Model):
 			return reverse("showProperty",kwargs={"id":self.id})
 
 	def get_features(self):
-		return self.features.split("\n")
+		if self.features:
+			return self.features.split("\n")
 
 	def get_offers(self):
-		return self.offers.split("\n")
+		if self.offers:
+			return self.offers.split("\n")
 
 	def __str__(self):
 		return self.property_type
@@ -172,14 +174,14 @@ This model class will be used to create multiple images for the above model.
 """
 class ImagesPropertyListing(models.Model):
 	image_for 		= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE)
-	image 			= models.ImageField(upload_to='list_Property_images',null=True,blank=True)
+	image 			= models.ImageField(upload_to=list_Property_images,null=True,blank=True)
 	image_content 	= models.CharField(max_length=200,null=True,blank=True)
 	timestamp 		= models.DateTimeField(auto_now=True)
 	updated 		= models.DateTimeField(auto_now_add=True)
 
 	__original_image = None
 
-	def __init__(self,*args,**kwars):
+	def __init__(self,*args,**kwargs):
 		super(ImagesPropertyListing,self).__init__(*args,**kwargs)
 		self.__original_image = self.image
 
@@ -193,11 +195,12 @@ class ImagesPropertyListing(models.Model):
 		super(ImagesPropertyListing,self).save(*args,**kwargs)
 
 	def __str__(self):
-		return self.content
+		return self.image_content
 
 class UserScheduleVisit(models.Model):
 	name 			= models.CharField(max_length=120)
-	contact 		= PhoneNumberField()
+	# contact 		= PhoneNumberField()
+	contact 		= models.CharField(max_length=35,null=True,blank=True)
 	email 			= models.EmailField()
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)

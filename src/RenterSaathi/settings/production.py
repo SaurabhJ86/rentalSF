@@ -84,8 +84,8 @@ WSGI_APPLICATION = 'RenterSaathi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rentersaathi_db',
-        'USER': 'abhishek_gupta',
+        'NAME': config("RS_DB_NAME"),
+        'USER': config("RS_DB_USER"),
         'PASSWORD':config("DB_PASSWORD"),
     }
 }

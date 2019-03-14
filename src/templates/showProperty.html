@@ -9,6 +9,10 @@
 		display: none;
 		position: absolute;
 	}
+	#terms:hover
+	{
+		cursor: pointer;
+	}
 </style>
 
 <br>
@@ -171,11 +175,11 @@
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
-								<div class="col-sm-9">
+								<div class="col-md-3 col-lg-8 col-xl-9">
 									<p style="float: left;">Security Deposit</p><br>
 									<p style="float: left;"><font size="2">Fully refundable if maintained in original condition.</font></p>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-md-8 col-lg-3 col-xl-2">
 									<p>{{ get_object.deposit }}</p>
 								</div>
 							</div>					
@@ -214,10 +218,66 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-6" id="terms">
 			<div class="card text-center">
 				<div class="card-body">
 					<h5 class="card-title">Terms of Stay</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="termsModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<h5>rentersaathi Terms of Stay</h5>
+						</div>
+						<div class="col-lg-6">
+							<button type="button" class="close" data-dismiss="modal">&#10006;</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body" style="height: 500px;overflow-y: scroll;">
+				<p>Details about Terms of Stay</p>
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12">
+							<h6 style="color: orange;">Service & Maintenance</h6>
+							<p style="font-size: 14px;">Service visit and material (if any) charges apply to all repair or maintenance related issues. Unless the request for repair is raised within 7-days of move-in, as then it will be accomodated in Onboarding Charges.</p>		
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12">
+							<h6 style="color: orange;">Late Rent Payment Charges</h6>
+							<p style="font-size: 14px;">In case rent is paid after 7th of the month, tenant would be charged Rs. 500.</p>
+							<p style="font-size: 14px;">Non-payment of rent post 15th of the month would result in a breach of tenancy terms and the tenant would be required to vacate the scheduled premises immediately.</p>
+							<p style="font-size: 14px;">These charges are levied in order to encourage tenants to pay by due date. This is also to avoid financial inconvenience to owners and facilitate payment of rent to owner by renterSaathi, on time.</p>		
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12">
+							<h6 style="color: orange;">Rent Increment</h6>
+							<p style="font-size: 14px;">Rent would be increased according to terms of agreement post 11 months of stay. Additional charges for revised agreement applicable</p>		
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12">
+							<h6 style="color: orange;">Notice Period Charges</h6>
+							<p style="font-size: 14px;">Tenant has to provide 1 month of notice while vacating. Any shortfall in notice period will be charged on a pro-rata basis where the charges would be equal to the no. of days of shortfall of the 1 month period.</p>		
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -266,16 +326,21 @@
 				}
 			})
 		})
-		$("#carouselExampleIndicators").on("slid.bs.carousel",function(e){
-			// console.log("{{ get_object.imagespropertylisting_set.all.0.image.url }}".replace("0",carousel_click))
-			// $(".carousel-item active").attr("src","get_object.imagespropertylisting_set.all." + String(carousel_click) + ".media.url")
-			carousel_click += 1
-			console.log(carousel_click)
-			// console.log(carousel_click)
-			// {% for img in get_object.imagespropertylisting_set.all %}
-			// 	console.log("{{img}}")
-			// {% endfor %}
+		$("#terms").on("click",function(e){
+			$("#termsModal").modal({
+				show:true
+			})
 		})
+		// $("#carouselExampleIndicators").on("slid.bs.carousel",function(e){
+		// 	// console.log("{{ get_object.imagespropertylisting_set.all.0.image.url }}".replace("0",carousel_click))
+		// 	// $(".carousel-item active").attr("src","get_object.imagespropertylisting_set.all." + String(carousel_click) + ".media.url")
+		// 	carousel_click += 1
+		// 	console.log(carousel_click)
+		// 	// console.log(carousel_click)
+		// 	// {% for img in get_object.imagespropertylisting_set.all %}
+		// 	// 	console.log("{{img}}")
+		// 	// {% endfor %}
+		// })
 	})
 </script>
 

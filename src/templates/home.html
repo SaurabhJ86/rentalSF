@@ -140,7 +140,7 @@ body .modal-dialog { /* Width */
 <br>
 
 <div class="container" style="background-color: #23BAC2;border-radius: 15px;">
-	<h4 align="center" style="padding-top: 25px;">Why RenterSaathi</h4>
+	<h5 align="center" style="padding-top: 25px;">Why <span style="font-family: Georgia;font-weight: bold;">rente<span style="font-size: 25px;">rs</span>aathi</span></h5>
 	<div class="row" style="padding: 50px;">
 		<div class="col-sm-3" id="listOptions">
 			<img class="mx-auto d-block" src="https://img.icons8.com/ios/50/000000/armchair.png">
@@ -192,7 +192,7 @@ body .modal-dialog { /* Width */
 
 <div class="container" id="farmviewPics">
 	<div class="container">
-		<h4 align="center">Communtiy @ RenterSaathi</h4>
+		<h5 align="center">Communtiy @ <span style="font-family: Georgia;font-weight: bold;">rente<span style="font-size: 25px;">rs</span>aathi</span></h5>
 	</div>
 	<div class="scrollmenu" id="rsImagesHolder">
 		{% for img in images %}
@@ -206,10 +206,10 @@ body .modal-dialog { /* Width */
 
 
 <div class="container" id="HomeOwners" style="background-color: #23BAC2;border-radius: 15px;">
-	<h4 align="center" style="padding-top: 25px;">Why RenterSaathi For Home Owners</h4>
+	<h5 align="center" style="padding-top: 25px;">Why <span style="font-family: Georgia;font-weight: bold;">rente<span style="font-size: 25px;">rs</span>aathi</span> For Home Owners</h5>
 	<div class="row" style="padding: 50px;">
 		<div class="col-sm-3">
-			<a href="#" style="color: black;">List Your Property</a>
+			<a href="{{ request.path }}owner/listings/" style="color: black;">List Your Property</a>
 		</div>
 		<div class="col-sm-3">
 			<h5>Get verified tenants</h5>
@@ -295,7 +295,7 @@ body .modal-dialog { /* Width */
 
 
 
-<!-- <div class="container" id="reviewsByUsers">
+<div class="container" id="reviewsByUsers">
 	<div class="row">
 		<div class="col-sm-12">
 			<h5 align="center">Please check the reviews from our customers.</h5>
@@ -323,7 +323,7 @@ body .modal-dialog { /* Width */
 		</div>
 		
 	</div>
-</div> -->
+</div>
 
 <br>
 <br>
@@ -356,7 +356,7 @@ body .modal-dialog { /* Width */
 			click:function(e)
 			{
 				get_room_type = $(this).attr("value")
-				window.location.href = "http://127.0.0.1:8000/listProperty/" + "?q=" + get_room_type
+				window.location.href = window.location.href + "listProperty/" + "?q=" + get_room_type
 			}
 		})
 	})

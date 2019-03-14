@@ -23,7 +23,8 @@ SECRET_KEY = '(+&wh@b2(glu7&r)j$s$$urh5tg)us3e%%=3b(ccq=ki)*+grs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['saurabh86.webfactional.com','www.tinmin.in','tinmin.in']
 
 
 # Application definition
@@ -132,6 +133,10 @@ STATIC_URL = '/static/'
 
 # MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
 # AWS Settings
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"static_files_local")
+]
 
 DEFAULT_FILE_STORAGE = 'RenterSaathi.utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = 'RenterSaathi.utils.StaticRootS3BotoStorage'

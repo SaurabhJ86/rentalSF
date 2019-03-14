@@ -1,5 +1,7 @@
+import re
 import uuid
 
+from django.core.validators import RegexValidator
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -48,7 +50,9 @@ class UserContact(models.Model):
 		return self.username
 
 
-
+"""
+This will display the images on the home page.
+"""
 class RSImages(models.Model):
 	name 			= models.CharField(max_length=120,null=True,blank=True)
 	content 		= models.TextField(null=True,blank=True)
@@ -77,13 +81,19 @@ class RSImages(models.Model):
 	def __str__(self):
 		return self.name
 
-
+"""
+This will display the bigger images of the image above created on the Bootstrap modal.
+"""
 class RSImagesMain(models.Model):
 	image_ID 	= models.ForeignKey(RSImages,on_delete=models.CASCADE)
 	image 		= models.ImageField(upload_to=main_upload_image,null=True,blank=True)
 	image_name 	= models.CharField(max_length=120,null=True,blank=True)
 	timestamp 	= models.DateTimeField(auto_now=True)
 	updated 	= models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		verbose_name 		= "Home Enlarged Image"
+		verbose_name_plural = "Home Enlarged Images"
 
 	def __str__(self):
 		return self.image_name
@@ -102,11 +112,15 @@ class RSImagesMain(models.Model):
 
 		super(RSImagesMain,self).save(*args,**kwargs)
 
+"""
+This model would be used by the owner to list their property.
+"""
 class ListProperty(models.Model):
 	ownername 		= models.CharField(max_length=120)
 	property_type 	= models.CharField(max_length=120)
 	area 			= models.CharField(max_length=120)
-	contact 		= models.CharField(max_length=120)
+	phone_regex 	= RegexValidator(regex=re.compile("(0/91)?[7-9][0-9]{9}"),message="Please enter a valid number.")
+	contact 		= models.CharField(validators = [phone_regex],max_length=120)
 	email 			= models.EmailField(blank=True,null=True)
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
@@ -115,7 +129,9 @@ class ListProperty(models.Model):
 	def __str__(self):
 		return self.ownername
 
-
+"""
+This model is used to create the Property Listing AD's.
+"""
 class PropertyListADCreation(models.Model):
 	property_type 	= models.CharField(max_length=120)
 	about_property 	= models.TextField()
@@ -197,6 +213,9 @@ class ImagesPropertyListing(models.Model):
 	def __str__(self):
 		return self.image_content
 
+"""
+This model would be used to hold the user details when he/she schedules a visit.
+"""
 class UserScheduleVisit(models.Model):
 	name 			= models.CharField(max_length=120)
 	# contact 		= PhoneNumberField()

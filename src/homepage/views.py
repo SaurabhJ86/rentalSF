@@ -57,9 +57,13 @@ def owner(request):
 def listProperty(request):
 
 	form = ListPropertyForm(request.POST or None)
-
+	print(request.POST.get("contact"))
 	if form.is_valid():
+		print("This was called")
 		form.save()
+		# a = form.save(commit=False)
+		# a.contact = "1921"
+		# a.save()
 		form = ListPropertyForm()
 		# This will return the message to be displayed back to the end user.
 		messages.success(request,"Details submitted successfully.Our team will contact you shortly.")

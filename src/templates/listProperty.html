@@ -4,11 +4,21 @@
 
 {% block content %}
 
+<style type="text/css">
+#backendmessages
+{
+	position: absolute;
+	z-index: 999;
+	left: 0px;
+	right: 0px;	
+}
+</style>
+
 {% if messages %}
 
 	{% for message in messages %}
 
-		<div class="alert alert-success">
+		<div class="alert alert-success" id="backendmessages">
 			<strong><p align="center">{{ message }}</p></strong>
 		</div>
 
@@ -32,5 +42,17 @@
 	</div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		if($("#backendmessages").is(":visible"))
+		{
+			setTimeout(function(){
+				$("#backendmessages").fadeOut()
+			},5000)
+		}
+	})
+</script>
 
 {% endblock %}

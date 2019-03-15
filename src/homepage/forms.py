@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import Textarea,TextInput
 
-from .models import UserContact,ListProperty,PropertyListADCreation,UserScheduleVisit
+from .models import UserContact,ListProperty,PropertyListADCreation,PropertyListRooms,UserScheduleVisit
 
 
 class ContactForm(forms.ModelForm):
@@ -83,3 +83,18 @@ class ScheduleVisitForm(forms.ModelForm):
 		for field in iter(self.fields):
 			self.fields[field].widget.attrs.update({"class":"form-control"})
 
+
+
+class PropertyListRoomForm(forms.ModelForm):
+
+	class Meta:
+		model = PropertyListRooms
+		exclude = ['']
+
+		widgets = {
+			"name":TextInput(attrs={"placeholder":"Room1, Room2"})
+		}
+
+	def __init__(self,*args,**kwargs):
+		super(PropertyListRoomForm,self).__init__(*args,**kwargs)
+		self.fields['prop'].queryset = PropertyListADCreation.objects.filter(is_active=True)

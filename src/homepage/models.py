@@ -186,25 +186,33 @@ class PropertyListADCreation(models.Model):
 	def __str__(self):
 		return self.property_type
 
+# This model will be used to create rooms for each Property Listed above.
 class PropertyListRooms(models.Model):
 
 	prop 			= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE)
+	# Use something like, Room 1,Room 2.
+	name 			= models.CharField(max_length=25,null=True,blank=True)
 	is_available 	= models.BooleanField(default=True)
+	bed_available 	= models.IntegerField(default=1)
+	private_room	= models.BooleanField(default=False)
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
 	deposit 		= models.CharField(max_length=40)
 	rent 			= models.CharField(max_length=40)
 
+	class Meta:
+		verbose_name_plural = "Property List Room"
+
 
 	def __str__(self):
-		self.prop.property_type
+		return self.prop.property_type + " " +  str(self.name)
 
 
 """
 This model class will be used to create multiple images for the above model.
 """
 class ImagesPropertyListing(models.Model):
-	image_for 		= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE)
+	image_for 		= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE,limit_choices_to={"rent":7000})
 	image 			= models.ImageField(upload_to=list_Property_images,null=True,blank=True)
 	image_content 	= models.CharField(max_length=200,null=True,blank=True)
 	timestamp 		= models.DateTimeField(auto_now=True)

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import include,path
 from django.views.generic import TemplateView
 
 from homepage.views import (
@@ -37,6 +37,7 @@ urlpatterns = [
     path('listProperty/',createListPropertyAD,name='listPropertyUser'),
     path('listProperty/<int:id>/',showProperty,name='showProperty'),
     path('about/',TemplateView.as_view(template_name='about.html'),name='about'),
+    path('hostel/',include('hostel.urls',namespace="hostel")),
 ]
 
 if settings.DEBUG:

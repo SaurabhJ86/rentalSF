@@ -185,6 +185,21 @@ class PropertyListADCreation(models.Model):
 
 	def __str__(self):
 		return self.property_type
+
+class PropertyListRooms(models.Model):
+
+	prop 			= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE)
+	is_available 	= models.BooleanField(default=True)
+	timestamp 		= models.DateTimeField(auto_now_add=True)
+	updated 		= models.DateTimeField(auto_now=True)
+	deposit 		= models.CharField(max_length=40)
+	rent 			= models.CharField(max_length=40)
+
+
+	def __str__(self):
+		self.prop.property_type
+
+
 """
 This model class will be used to create multiple images for the above model.
 """
@@ -218,7 +233,6 @@ This model would be used to hold the user details when he/she schedules a visit.
 """
 class UserScheduleVisit(models.Model):
 	name 			= models.CharField(max_length=120)
-	# contact 		= PhoneNumberField()
 	contact 		= models.CharField(max_length=35,null=True,blank=True)
 	email 			= models.EmailField()
 	timestamp 		= models.DateTimeField(auto_now_add=True)

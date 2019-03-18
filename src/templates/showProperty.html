@@ -17,6 +17,16 @@
 	{
 		color: grey;
 	}
+	#extraCharges:hover
+	{
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	#extraChargesList > p
+	{
+		font-size: 15px;
+		color: grey;
+	}
 
 </style>
 
@@ -153,28 +163,31 @@
 	</div>
 </div>
 <br>
-<div class="container">
+<div class="container" id="roomDetailContainer">
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="card text-center">
 				<div class="card-header">
 					<ul class="nav nav-tabs card-header-tabs">
 						<li class="nav-item" style="display: inline-flex;" id="roomDetails">
-							<a class="nav-link active" href="#" rent="{{ get_object.rent }}" deposit="{{ get_object.deposit }}">{{ get_object.room_type|capfirst }}</a>							
+							<a class="nav-link active" href="#" rent="{{ get_object.rent }}" deposit="{{ get_object.deposit }}" bedCount="{{ get_object.bed_available }}">{{ get_object.room_type|capfirst }}</a>
 							{% for room in get_object.propertylistrooms_set.all %}
-								<a class="nav-link" href="#" rent="{{ room.rent }}" deposit="{{ room.deposit }}">{{ room.name }}</a>
+								{% if room %}
+									<a class="nav-link" href="#" rent="{{ room.rent }}" deposit="{{ room.deposit }}" bedCount="{{ room.bed_available }}" private="{{ room.private_room }}" is_available="{{ room.is_available }}">{{ room.name }}</a>
+								{% endif %}
 							{% endfor %}
 						</li>
 					</ul>
 				</div>
-				<div class="card card-body">
+				<div class="card card-body" id="roomAvailable">
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-6">
 									<p style="float: left;">Rent</p>
+									<p style="visibility: hidden;" id="privateRoom"><small>(Private Room is Available.)</small></p>
 								</div>
-								<div class="col-sm-4 offset-sm-4">
+								<div class="col-sm-4 offset-sm-2">
 									<p id="roomRent">{{ get_object.rent }}</p>
 								</div>
 							</div>
@@ -196,9 +209,22 @@
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
+								<div class="col-xl-8">
+									<p style="float: left">Bed(s) Available</p>
+								</div>
+								<div class="col-xl-4">
+									<p id="showbedCount">{{ get_object.bed_available }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
 								<div class="col-sm-9">
 									<p style="float: left;">Extra Charges</p><br>
-									<p style="float: left;"><font size="2">One-time charges. For all legal requirements.</font></p>
+									<br>
+									<p style="font-size: 12px;float: left;color: orange;" id="extraCharges">What does it cover</p>
 								</div>
 								<div class="col-sm-2">
 									<p>2000</p>
@@ -217,11 +243,41 @@
 	</div>
 </div>
 
+<div id="showExtraChargesModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<h5>Extra Charges.</h5>
+						</div>
+						<div class="col-lg-6">
+							<button type="button" class="close" data-dismiss="modal">&#10006;</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<ul id="extraChargesList">
+					<li>Stamp Duty</li>
+					<p>Agreement charges + legal fees and taxes as per the municipality laws</p>
+					<li>Verification Charges</li>
+					<p>Police Verification Fees + other local fees for verification.</p>
+					<li>Pre Cleaning</li>
+					<p>House cleaning before you move-in</p>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<p>Note: Charges vary based on house city, size, rent & quality.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
 <br>
 <br>
 
-
-<br>
 
 <div class="container">
 	<div class="row">
@@ -339,26 +395,45 @@
 			})
 		})
 		$("#roomDetails > a").on("click",function(e){
+			e.preventDefault();
+			$("#roomDetailContainer").css("opacity","0.5")
+			setTimeout(function(){
+				$("#roomDetailContainer").css("opacity","1")
+			},750)
 			$("#roomDetails a.active").css("color","grey")
 			$("#roomDetails a.active").removeClass("active")
 			$(this).addClass("nav-link active")
 			$(this).css("color","#315b8c")
-			e.preventDefault();
-			var rent 	= $(this).attr("rent")
-			var deposit = $(this).attr("deposit")
-			$("#roomRent").text(rent)
-			$("#roomDeposit").text($(this).attr("deposit"))
+			var rent 		= $(this).attr("rent")
+			var deposit 	= $(this).attr("deposit")
+			var bedCount 	= $(this).attr("bedCount")
+			var private 	= $(this).attr("private")
+			var available 	= $(this).attr("is_available")
+			if (available == "False")
+			{
+				$("#roomRent").text("Sold Out").css("color","grey")
+			}
+			else
+			{
+				$("#roomRent").text(rent)	
+			}
+			if (private == "True") 
+			{
+				$("#privateRoom").css("visibility","visible")
+			}
+			else
+			{
+				$("#privateRoom").css("visibility","hidden")
+			}
+			
+			$("#roomDeposit").text(deposit)
+			$("#showbedCount").text(bedCount)
 		})
-		// $("#carouselExampleIndicators").on("slid.bs.carousel",function(e){
-		// 	// console.log("{{ get_object.imagespropertylisting_set.all.0.image.url }}".replace("0",carousel_click))
-		// 	// $(".carousel-item active").attr("src","get_object.imagespropertylisting_set.all." + String(carousel_click) + ".media.url")
-		// 	carousel_click += 1
-		// 	console.log(carousel_click)
-		// 	// console.log(carousel_click)
-		// 	// {% for img in get_object.imagespropertylisting_set.all %}
-		// 	// 	console.log("{{img}}")
-		// 	// {% endfor %}
-		// })
+		$("#extraCharges").on("click",function(e){
+			$("#showExtraChargesModal").modal({
+				show:true
+			})
+		})
 	})
 </script>
 

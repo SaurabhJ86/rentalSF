@@ -17,7 +17,7 @@
 	{
 		color: grey;
 	}
-	#extraCharges:hover
+	#extraCharges:hover,#securityDepositInfo:hover
 	{
 		cursor: pointer;
 		text-decoration: underline;
@@ -165,7 +165,7 @@
 <br>
 <div class="container" id="roomDetailContainer">
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
 			<div class="card text-center">
 				<div class="card-header">
 					<ul class="nav nav-tabs card-header-tabs">
@@ -183,12 +183,12 @@
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-6 col-sm-6">
 									<p style="float: left;">Rent</p>
 									<p style="visibility: hidden;" id="privateRoom"><small>(Private Room is Available.)</small></p>
 								</div>
-								<div class="col-sm-4 offset-sm-2">
-									<p id="roomRent">{{ get_object.rent }}</p>
+								<div class="col-6 col-sm-4 offset-sm-2">
+									<p id="roomRent" class="float-right">{{ get_object.rent }}</p>
 								</div>
 							</div>
 						</div>
@@ -196,12 +196,13 @@
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
-								<div class="col-md-3 col-lg-8 col-xl-9">
+								<div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 									<p style="float: left;">Security Deposit</p><br>
-									<p style="float: left;"><font size="2">Fully refundable if maintained in original condition.</font></p>
+									<br>
+									<p style="font-size: 12px;float: left;color: orange;" id="securityDepositInfo">More Info</p>
 								</div>
-								<div class="col-md-8 col-lg-3 col-xl-2">
-									<p id="roomDeposit">{{ get_object.deposit }}</p>
+								<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+									<p id="roomDeposit" class="float-right">{{ get_object.deposit }}</p>
 								</div>
 							</div>					
 						</div>
@@ -209,11 +210,11 @@
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
-								<div class="col-xl-8">
+								<div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 									<p style="float: left">Bed(s) Available</p>
 								</div>
-								<div class="col-xl-4">
-									<p id="showbedCount">{{ get_object.bed_available }}</p>
+								<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+									<p id="showbedCount" class="float-right">{{ get_object.bed_available }}</p>
 								</div>
 							</div>
 						</div>
@@ -221,13 +222,13 @@
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
-								<div class="col-sm-9">
+								<div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 									<p style="float: left;">Extra Charges</p><br>
 									<br>
-									<p style="font-size: 12px;float: left;color: orange;" id="extraCharges">What does it cover</p>
+									<p style="font-size: 12px;float: left;color: orange;" id="extraCharges">What does it cover?</p>
 								</div>
-								<div class="col-sm-2">
-									<p>2000</p>
+								<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+									<p class="float-right">{{ get_object.extra_charges }}</p>
 								</div>
 							</div>								
 						</div>
@@ -265,11 +266,41 @@
 					<li>Verification Charges</li>
 					<p>Police Verification Fees + other local fees for verification.</p>
 					<li>Pre Cleaning</li>
-					<p>House cleaning before you move-in</p>
+					<p>House cleaning before you move-in.</p>
 				</ul>
 			</div>
 			<div class="modal-footer">
-				<p>Note: Charges vary based on house city, size, rent & quality.</p>
+				<p class="mr-auto">* Note: Charges vary based on house city, size, rent & quality.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="showSecurityDepositModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<h6>Security Deposit Policy</h6>
+						</div>
+						<div class="col-lg-6">
+							<button type="button" class="close" data-dismiss="modal">&#10006;</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<ul id="extraChargesList">
+					<li>Why?</li>
+					<p>This goes directly to the owner</p>
+					<li>Refund</li>
+					<p>Full Refund if the property is maintained in the original condition.</p>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<p class="mr-auto">* Note: Refund will depend on the inspection.</p>
 			</div>
 		</div>
 	</div>
@@ -415,7 +446,7 @@
 			}
 			else
 			{
-				$("#roomRent").text(rent)	
+				$("#roomRent").text(rent).css("color","black")	
 			}
 			if (private == "True") 
 			{
@@ -431,6 +462,11 @@
 		})
 		$("#extraCharges").on("click",function(e){
 			$("#showExtraChargesModal").modal({
+				show:true
+			})
+		})
+		$("#securityDepositInfo").on("click",function(e){
+			$("#showSecurityDepositModal").modal({
 				show:true
 			})
 		})

@@ -149,6 +149,7 @@ class PropertyListADCreation(models.Model):
 	offers 			= models.TextField(null=True,blank=True)
 	bed_available 	= models.IntegerField(default=1)
 	room_type 		= models.CharField(max_length=40,default="shared")
+	extra_charges 	= models.CharField(max_length=4,default="2000")
 
 	__original_image = None
 

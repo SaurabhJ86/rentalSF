@@ -443,10 +443,14 @@
 			if (available == "False")
 			{
 				$("#roomRent").text("Sold Out").css("color","grey")
+				$("#securityDepositInfo").css({"cursor":"not-allowed","text-decoration":"initial","opacity":"0.5"})
+				$("#extraCharges").css({"cursor":"not-allowed","text-decoration":"initial","opacity":"0.5"})				
 			}
 			else
 			{
-				$("#roomRent").text(rent).css("color","black")	
+				$("#roomRent").text(rent).css("color","black")
+				$("#securityDepositInfo").css({"cursor":"","text-decoration":"","opacity":""})
+				$("#extraCharges").css({"cursor":"","text-decoration":"","opacity":""})	
 			}
 			if (private == "True") 
 			{

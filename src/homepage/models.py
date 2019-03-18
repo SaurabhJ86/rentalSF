@@ -1,3 +1,4 @@
+import datetime
 import re
 import uuid
 
@@ -140,6 +141,8 @@ class PropertyListADCreation(models.Model):
 	area 			= models.CharField(max_length=120)
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
+	available_on 	= models.DateField(default=datetime.date.today)
+	address 		= models.CharField(max_length=150,null=True,blank=True)
 	is_active 		= models.BooleanField(default=False)
 	property_image 	= models.ImageField(upload_to=upload_prop_image,null=True,blank=True)
 	gender 			= models.CharField(max_length=30,default="Boys/Girls/Family")

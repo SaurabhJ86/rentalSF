@@ -92,10 +92,12 @@
 								<img src="https://img.icons8.com/ios/50/000000/shower-filled.png" alt="Images will be uploaded soon">
 								<p>Bathroom</p>
 							</div>
+							{% if get_object.furnished == "Fully Furnished" %}
 							<div class=" col-lg-4">
 								<img src="https://img.icons8.com/ios/50/000000/sofa-with-buttons.png" alt="Images will be uploaded soon">
 								<p>Fully Furnished</p>								
 							</div>
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -133,6 +135,9 @@
 
 		<div class="col-sm-4 offset-sm-2">
 			<button class="btn btn-info" id="schedulevist" data-toggle="modal" data-target="#scheduleVistModal">Schedule a Visit</button>
+			<br>
+			<h5>Available on</h5>
+			<p>{{ get_object.available_on }}</p>
 		</div>
 	</div>
 </div>

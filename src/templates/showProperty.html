@@ -76,8 +76,8 @@
 					</div>
 				{% endif %}				
 				<div class="card-body">
-					<h5>{{ get_object.about_property}}</h4>
-					<p>For {{ get_object.gender }} | {% if get_object.bed_available == 1 %} {{ get_object.bed_available }} bed available {% else %} {{ get_object.bed_available }} beds available {% endif %}</p>
+					<h5>{{ get_object.property_type}}</h4>
+					<p>For {{ get_object.gender }} {% if get_object.room_type == "shared" %} | {% if get_object.bed_available == 1 %} {{ get_object.bed_available }} bed available {% else %} {{ get_object.bed_available }} beds available {% endif %} {% endif %}</p>
 					<p>{{ get_object.furnished }}</p>
 				</div>
 				<div class="card-body">
@@ -86,11 +86,11 @@
 						<div class="row">
 							<div class=" col-lg-4">
 								<img src="https://img.icons8.com/ios/50/000000/sleeping-in-bed.png" alt="Images will be uploaded soon">
-								<p>Bed</p>								 
+								<p>{{ get_object.total_rooms }} Bedroom<span>{% if get_object.total_rooms > 1 %}s{% endif %}</span></p>								 
 							</div>
 							<div class=" col-lg-4">
 								<img src="https://img.icons8.com/ios/50/000000/shower-filled.png" alt="Images will be uploaded soon">
-								<p>Bathroom</p>
+								<p>{{ get_object.bathrooms }} Bathroom<span>{% if get_object.bathrooms > 1 %}s{% endif %}</span></p>
 							</div>
 							{% if get_object.furnished == "Fully Furnished" %}
 							<div class=" col-lg-4">
@@ -136,8 +136,8 @@
 		<div class="col-sm-4 offset-sm-2">
 			<button class="btn btn-info" id="schedulevist" data-toggle="modal" data-target="#scheduleVistModal">Schedule a Visit</button>
 			<br>
-			<h5>Available on</h5>
-			<p>{{ get_object.available_on }}</p>
+			<br>
+			<h5>Available <span>{% if get_object.valid_date %} on: {{ get_object.available_on }} {% else %}: Now {% endif %}</span></h5>
 		</div>
 	</div>
 </div>
@@ -212,6 +212,7 @@
 							</div>					
 						</div>
 					</div>
+					{% if get_object.room_type == "shared" %}
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
@@ -224,6 +225,7 @@
 							</div>
 						</div>
 					</div>
+					{% endif %}
 					<div class="card-body">
 						<div class="container">
 							<div class="row">
@@ -314,6 +316,22 @@
 <br>
 <br>
 
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card text-center">
+				<div class="card-body">
+					<h5 class="card-title">About Property</h5>
+					<p class="card-text"><small>{{ get_object.about_property }}</small></p>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>
+
+
+<br>
+<br>
 
 <div class="container">
 	<div class="row">

@@ -77,10 +77,10 @@
 								<img class="card-img-top" src="{{ property.property_image.url }}">
 							{% endif %}
 							<div class="card-body">
-								<p>{{ property.about_property }}</p>
+								<p>{{ property.property_type }}</p>
 								<p>For: {{ property.gender }}</p>
 								<p>Area: {{ property.area }}</p>
-								<p>{{ property.furnished }} | {% if property.bed_available == 1 %} {{ property.bed_available }} bed available {% else %} {{ property.bed_available }} beds available {% endif %}</p>
+								<p>{{ property.furnished }} {% if property.room_type == "shared" %} | {% if property.bed_available == 1 %} {{ property.bed_available }} bed available {% else %} {{ property.bed_available }} beds available {% endif %} {% endif %}</p>
 							</div>
 							<div class="card-footer">
 								<div class="row">

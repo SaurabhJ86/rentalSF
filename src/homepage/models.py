@@ -153,6 +153,8 @@ class PropertyListADCreation(models.Model):
 	bed_available 	= models.IntegerField(default=1)
 	room_type 		= models.CharField(max_length=40,default="shared")
 	extra_charges 	= models.CharField(max_length=4,default="2000")
+	total_rooms 	= models.IntegerField(default=1)
+	bathrooms 		= models.IntegerField(default=1)
 
 	__original_image = None
 
@@ -186,6 +188,13 @@ class PropertyListADCreation(models.Model):
 	def get_offers(self):
 		if self.offers:
 			return self.offers.split("\n")
+	# This method will check whether to show Now or the available_on date.
+	def valid_date(self):
+		if self.available_on:
+			get_current_data = datetime.datetime.now().date()
+			if self.available_on > get_current_data:
+				return True
+			return False
 
 	def __str__(self):
 		return self.property_type
@@ -213,7 +222,7 @@ class PropertyListRooms(models.Model):
 
 
 """
-This model class will be used to create multiple images for the above model.
+This model class will be used to create multiple images for the model PropertyListADCreation.
 """
 class ImagesPropertyListing(models.Model):
 	image_for 		= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE,limit_choices_to={"rent":7000})

@@ -155,6 +155,8 @@ class PropertyListADCreation(models.Model):
 	extra_charges 	= models.CharField(max_length=4,default="2000")
 	total_rooms 	= models.IntegerField(default=1)
 	bathrooms 		= models.IntegerField(default=1)
+	lat 			= models.CharField(max_length=45,null=True,blank=True)
+	lng 			= models.CharField(max_length=45,null=True,blank=True)
 
 	__original_image = None
 

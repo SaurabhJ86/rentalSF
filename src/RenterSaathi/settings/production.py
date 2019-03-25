@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Local app
     'homepage',
     'hostel',
+    'Profile',
 ]
 
 MIDDLEWARE = [

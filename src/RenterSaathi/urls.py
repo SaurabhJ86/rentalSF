@@ -38,6 +38,7 @@ urlpatterns = [
     path('listProperty/<int:id>/',showProperty,name='showProperty'),
     path('about/',TemplateView.as_view(template_name='about.html'),name='about'),
     path('hostel/',include('hostel.urls',namespace="hostel")),
+    path('profile/',include('Profile.urls',namespace='Profile')),
 ]
 
 if settings.DEBUG:

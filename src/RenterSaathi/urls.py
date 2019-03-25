@@ -42,8 +42,8 @@ urlpatterns = [
     path('hostel/',include('hostel.urls',namespace="hostel")),
     path('profile/',include('Profile.urls',namespace='Profile')),
     path('login/',auth_views.LoginView.as_view(),name='login'),
-    # path('logout/',auth_views.LogoutView(next_page='/'),name='logout'),
-    path('logout/',logout,name='logout'),
+    path('logout/',auth_views.LogoutView.as_view(next_page='login'),name='logout'),
+    # path('logout/',logout,name='logout'),
 ]
 
 if settings.DEBUG:

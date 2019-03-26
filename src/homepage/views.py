@@ -107,9 +107,18 @@ def createListPropertyAD(request):
 
 
 def showProperty(request,id):
+	profile = None
+	property_saved = False
+
+	if request.user.is_authenticated:
+		if not request.user.is_superuser:
+			profile = request.user.profile
 
 	visit = request.POST.get("visit")
 	get_object = get_object_or_404(PropertyListADCreation,id=id)
+
+	if profile:
+		property_saved = profile.check_property(get_object)
 
 	visitForm = ScheduleVisitForm(request.POST or None)
 
@@ -135,6 +144,7 @@ def showProperty(request,id):
 	context = {
 		"get_object":get_object,
 		"visitForm":visitForm,
+		"property_saved":property_saved,
 	}
 
 

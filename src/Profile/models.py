@@ -3,13 +3,19 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from homepage.models import PropertyListADCreation
 
 class Profile(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE)
-	timestamp = models.DateTimeField(auto_now=True)
-	updated = models.DateTimeField(auto_now_add=True)
-	phone 	= models.CharField(max_length=20)
+	user 			= models.OneToOneField(User,on_delete=models.CASCADE)
+	timestamp 		= models.DateTimeField(auto_now=True)
+	updated 		= models.DateTimeField(auto_now_add=True)
+	phone 			= models.CharField(max_length=20)
+	saveProperty 	= models.ManyToManyField(PropertyListADCreation,related_name='under_property',blank=True)
 
+	def check_property(self,save_property):
+		if save_property in self.saveProperty.all():
+			return True
+		return False
 
 	def __str__(self):
 		return self.user.username

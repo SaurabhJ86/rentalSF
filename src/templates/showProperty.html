@@ -36,6 +36,15 @@
 		height: 100%;
 		width: 100%;
 	}
+	.btn-group
+	{
+		margin-left: 75px;
+	}
+	.btn-group > a
+	{
+		width: 100px;
+	}
+
 
 </style>
 
@@ -164,6 +173,46 @@
 			<br>
 			<br>
 			<h5>Available <span>{% if get_object.valid_date %} on: {{ get_object.available_on }} {% else %}: Now {% endif %}</span></h5>
+			{% if property_saved %}
+				<button class="btn btn-info" id="saveProperty" style="">Saved</button>
+			{% else %}
+				<button class="btn btn-outline-info" id="saveProperty">Save</button>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<div id="savePropertyRedirectLogin" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8">
+							<h6>Login Required</h6>
+						</div>
+						<div class="col-lg-4">
+							<button type="button" class="close" data-dismiss="modal">&#10006;</button>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="btn-toolbar">
+								<div class="btn-group">
+									<a href="{% url 'login' %}" class="btn btn-outline-info">Login</a>	
+								</div>
+								<div class="btn-group">
+									<a href="{% url 'Profile:profile-signup' %}" class="btn btn-outline-info">Register</a>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -567,6 +616,18 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dEZoCwk6kXXaXwPOVgnVrjI
 			{
 				$("#mapHolder").css("display","none")
 				$("#featuresAndMap").css("display","block")
+			}
+		})
+		$("#saveProperty").on("click",function(e){
+			if ("{{ user.is_authenticated }}" == "False")
+			{
+				$("#savePropertyRedirectLogin").modal({
+					show:true
+				})
+			}
+			else
+			{
+				console.log("Save Property.")
 			}
 		})
 	})

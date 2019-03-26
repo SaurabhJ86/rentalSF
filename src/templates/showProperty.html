@@ -44,6 +44,10 @@
 	{
 		width: 100px;
 	}
+	#savePropertyContainer > button
+	{
+		width: 75px;
+	}
 
 
 </style>
@@ -173,11 +177,13 @@
 			<br>
 			<br>
 			<h5>Available <span>{% if get_object.valid_date %} on: {{ get_object.available_on }} {% else %}: Now {% endif %}</span></h5>
-			{% if property_saved %}
-				<button class="btn btn-info" id="saveProperty" style="">Saved</button>
-			{% else %}
-				<button class="btn btn-outline-info" id="saveProperty">Save</button>
-			{% endif %}
+			<div class="container" id="savePropertyContainer" style="margin-left: 0px;">
+				{% if property_saved %}
+					<button class="btn btn-info" id="savedProperty" style="">Saved</button>
+				{% else %}
+					<button class="btn btn-outline-info" id="saveProperty">Save</button>
+				{% endif %}				
+			</div>
 		</div>
 	</div>
 </div>
@@ -618,7 +624,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dEZoCwk6kXXaXwPOVgnVrjI
 				$("#featuresAndMap").css("display","block")
 			}
 		})
-		$("#saveProperty").on("click",function(e){
+		$("#savePropertyContainer > button").on("click",function(e){
 			if ("{{ user.is_authenticated }}" == "False")
 			{
 				$("#savePropertyRedirectLogin").modal({
@@ -627,7 +633,30 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dEZoCwk6kXXaXwPOVgnVrjI
 			}
 			else
 			{
-				console.log("Save Property.")
+				$.ajax({
+					type:"POST",
+					url:"{% url 'toggle-property' %}",
+					data:{
+						csrfmiddlewaretoken:"{{ csrf_token }}",
+						"property":"{{ get_object.id }}",
+						"profile":"{{ profile.id }}",
+					},
+					success:function(context)
+					{
+						if(context == "True")
+						{
+							console.log("Was Added")
+							// $("#savedProperty").addClass("btn-outline-info")
+							// $("#savedProperty").css("display","block")
+						}
+						if(context == "False")
+						{
+							console.log("Was Removed")
+							// $("#saveProperty").css("display","block")
+							// $("#saveProperty").removeClass("btn-outline-info")
+						}
+					}
+				})
 			}
 		})
 	})

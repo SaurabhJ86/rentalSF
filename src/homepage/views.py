@@ -4,10 +4,13 @@ from django.http import HttpResponse
 
 from django.shortcuts import render,get_object_or_404
 from django.views import generic
+from django.views.generic import View
 
 # Create your views here.
 from .models import PropertyListADCreation,UserContact,RSImages
 from .forms import ContactForm,ListPropertyForm,PropertyListADForm,ScheduleVisitForm,UserScheduleVisit
+
+from Profile.models import Profile
 def homepage(request):
 	images = RSImages.objects.all()
 	form = ContactForm(request.POST or None)
@@ -145,8 +148,20 @@ def showProperty(request,id):
 		"get_object":get_object,
 		"visitForm":visitForm,
 		"property_saved":property_saved,
+		"profile":profile,
 	}
 
 
 	return render(request,template,context)
+
+"""
+This CBV will interact with the Manager method to toggle the user from the property.
+"""
+class PropertyToggle(View):
+	def post(self,request,*args,**kwargs):
+		property_to_toggle = request.POST.get("property")
+		profile = request.POST.get("profile")
+		_profile,status = Profile.objects.toggle_property(profile,property_to_toggle)
+		return HttpResponse(status)
+
 

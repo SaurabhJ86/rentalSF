@@ -27,6 +27,7 @@ from homepage.views import (
     getContact,
     listProperty,
     owner,
+    PropertyToggle,
     showProperty,
     )
 
@@ -43,6 +44,7 @@ urlpatterns = [
     path('profile/',include('Profile.urls',namespace='Profile')),
     path('login/',auth_views.LoginView.as_view(),name='login'),
     path('logout/',auth_views.LogoutView.as_view(next_page='login'),name='logout'),
+    path('property-toggle/',PropertyToggle.as_view(),name='toggle-property'),
 ]
 
 if settings.DEBUG:

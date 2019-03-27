@@ -47,6 +47,7 @@
 	#savePropertyContainer > button
 	{
 		width: 75px;
+		margin-left: -15px;
 	}
 
 </style>
@@ -176,7 +177,7 @@
 			<br>
 			<br>
 			<h5>Available <span>{% if get_object.valid_date %} on: {{ get_object.available_on }} {% else %}: Now {% endif %}</span></h5>
-			<div class="container" id="savePropertyContainer" style="margin-left: 0px;">
+			<div class="container" id="savePropertyContainer">
 				{% if property_saved %}
 					<button class="btn btn-info shadow-none" id="savedProperty" style="">Saved</button>
 				{% else %}

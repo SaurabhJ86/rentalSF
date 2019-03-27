@@ -36,6 +36,14 @@ class Profile(models.Model):
 		return self.user.username
 
 
+class SavePropertyTracker(models.Model):
+	savedProperty 	= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE)
+	profile 		= models.ForeignKey(Profile,on_delete=models.CASCADE)
+	timestamp 		= models.DateTimeField(auto_now=True)
+	updated 		= models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		self.profile.user.username
 
 @receiver(post_save,sender=User)
 def create_user_profile(sender,instance,created,**kwargs):

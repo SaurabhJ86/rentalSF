@@ -49,7 +49,6 @@
 		width: 75px;
 	}
 
-
 </style>
 
 <br>
@@ -179,9 +178,9 @@
 			<h5>Available <span>{% if get_object.valid_date %} on: {{ get_object.available_on }} {% else %}: Now {% endif %}</span></h5>
 			<div class="container" id="savePropertyContainer" style="margin-left: 0px;">
 				{% if property_saved %}
-					<button class="btn btn-info" id="savedProperty" style="">Saved</button>
+					<button class="btn btn-info shadow-none" id="savedProperty" style="">Saved</button>
 				{% else %}
-					<button class="btn btn-outline-info" id="saveProperty">Save</button>
+					<button class="btn btn-outline-info shadow-none" id="saveProperty">Save</button>
 				{% endif %}				
 			</div>
 		</div>
@@ -625,6 +624,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dEZoCwk6kXXaXwPOVgnVrjI
 			}
 		})
 		$("#savePropertyContainer > button").on("click",function(e){
+			$ths = $(this)
 			if ("{{ user.is_authenticated }}" == "False")
 			{
 				$("#savePropertyRedirectLogin").modal({
@@ -645,15 +645,13 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dEZoCwk6kXXaXwPOVgnVrjI
 					{
 						if(context == "True")
 						{
-							console.log("Was Added")
-							// $("#savedProperty").addClass("btn-outline-info")
-							// $("#savedProperty").css("display","block")
+							$ths.text("Saved")
+							$ths.toggleClass("btn-info btn-outline-info")
 						}
 						if(context == "False")
 						{
-							console.log("Was Removed")
-							// $("#saveProperty").css("display","block")
-							// $("#saveProperty").removeClass("btn-outline-info")
+							$ths.text("Save")
+							$ths.toggleClass("btn-outline-info btn-info")
 						}
 					}
 				})

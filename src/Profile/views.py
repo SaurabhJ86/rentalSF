@@ -1,10 +1,11 @@
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.models import User
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404,render,redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
 
-
-from .forms import SignUpForm
+from .forms import SignUpForm,UpdateProfileForm,UpdateUserForm
 from .models import Profile
 
 def signup(request):
@@ -54,6 +55,30 @@ def saveProperty(request):
 	context = {
 	"savedProperties":savedProperties,
 	"profile":profile,
+	}
+
+	return render(request,template,context)
+
+@login_required(login_url="login")
+def updateProfile(request):
+
+	profile_instance = Profile.objects.get(user=request.user)
+
+	if request.method == "POST":
+		user_form = UpdateUserForm(request.POST ,instance=request.user)
+		profile_form = UpdateProfileForm(request.POST,instance = profile_instance)
+		if user_form.is_valid() and profile_form.is_valid():
+			user_form.save()
+			profile_form.save()
+	else:
+		user_form = UpdateUserForm(instance=request.user)
+		profile_form = UpdateProfileForm(instance=profile_instance)
+
+	template = 'updateProfile.html'
+
+	context = {
+		"user_form":user_form,
+		"profile_form":profile_form,
 	}
 
 	return render(request,template,context)

@@ -53,6 +53,7 @@ def saveProperty(request):
 
 	context = {
 	"savedProperties":savedProperties,
+	"profile":profile,
 	}
 
 	return render(request,template,context)

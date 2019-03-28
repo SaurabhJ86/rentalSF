@@ -27,6 +27,13 @@
 					<p>Property AD was listed on {{ property.timestamp|date:"d,M Y." }}</p>
 					<p>Available <span>{% if property.valid_date %} on: {{ property.available_on }} {% else %}: Now {% endif %}</span></p>
 					<a href="{{ property.get_absolute_url }}">Know More.</a>
+					<br>
+					<form method="POST" action="{% url 'toggle-property' %}">{% csrf_token %}
+						<input type="hidden" name="property" value="{{ property.id }}">
+						<input type="hidden" name="profile" value="{{ profile.id }}">
+						<input type="hidden" name="form" value="reload">						
+						<button class="btn btn-info">Remove</button>
+					</form>
 				</div>
 			</div>
 		{% endfor %}

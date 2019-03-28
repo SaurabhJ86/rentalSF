@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import redirect,render,get_object_or_404
 from django.views import generic
 from django.views.generic import View
 
@@ -156,12 +156,18 @@ def showProperty(request,id):
 
 """
 This CBV will interact with the Manager method to toggle the user from the property.
+Since this View would be used by both showSaveProperty.html and showProperty.html, and both have different way to handle this
+such as showProperty.html which uses Ajax whereas showSaveProperty.html uses the form, therefore I have put this filter "form"
+to check whether the call is coming from Ajax or from a Form.
 """
 class PropertyToggle(View):
 	def post(self,request,*args,**kwargs):
-		property_to_toggle = request.POST.get("property")
-		profile = request.POST.get("profile")
-		_profile,status = Profile.objects.toggle_property(profile,property_to_toggle)
+		property_to_toggle 	= request.POST.get("property")
+		profile 			= request.POST.get("profile")
+		form 				= request.POST.get("form")
+		_profile,status 	= Profile.objects.toggle_property(profile,property_to_toggle)
+		if form:
+			return redirect('Profile:profile-saveproperty')
 		return HttpResponse(status)
 
 

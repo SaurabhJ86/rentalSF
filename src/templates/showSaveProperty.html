@@ -3,22 +3,36 @@
 
 {% block content %}
 
-
+<br>
+<br>
+<h5 align="center">Your Saved Properties will be Listed Here.</h5>
+<br>
+<br>
 {% if savedProperties %}
 
 	<div class="container">
-		<div class="row">
-			<div class="col-xl-12">
-					{% for property in savedProperties %}
-						<!-- <a href="{{ property.get_absolute_url }}">{{ property }}</a> -->
+		{% for property in savedProperties %}
+			<div class="row">
+				<div class="col-xl-6">
+					<div class="container-fluid">
 						<img src="{{ property.property_image.url }}">
-						<p>{{ property.about_property }}</p>
-					{% endfor %}					
+						<div class="centered"><p class="text-info">Rent:{{ property.rent }} | Deposit:{{ property.deposit }}.</p></div>
+					</div>
+				</div>
+				<div class="col-xl-6">
+					<p>{{ property.property_type }}</p>
+					<small class="text-muted">{{ property.about_property }}</small>
+					<br>
+					<br>
+					<p>Property AD was listed on {{ property.timestamp|date:"d,M Y." }}</p>
+					<p>Available <span>{% if property.valid_date %} on: {{ property.available_on }} {% else %}: Now {% endif %}</span></p>
+					<a href="{{ property.get_absolute_url }}">Know More.</a>
+				</div>
 			</div>
-		</div>
+		{% endfor %}
 	</div>
-	<a href="{% url 'listPropertyUser' %}">Explore More.</a>
-
+	<br>
+	<br>
 {% else %}
 
 <div class="container text-center">

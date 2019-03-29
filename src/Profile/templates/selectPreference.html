@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style>
+	.slidecontainer {
+	  width: 100%;
+	}
+
+	.slider {
+	  -webkit-appearance: none; 
+	  appearance: none;
+	  width: 100%; /* Full-width */
+	  height: 25px; /* Specified height */
+	  background: #d3d3d3; /* Grey background */
+	  outline: none; /* Remove outline */
+	  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+	  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+	  transition: opacity .2s;
+	}
+
+	/* Mouse-over effects */
+	.slider:hover {
+	  opacity: 1; /* Fully shown on mouse-over */
+	}
+
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none; /* Override default look */
+	  appearance: none;
+	  width: 25px; /* Set a specific slider handle width */
+	  height: 25px; /* Slider handle height */
+	  background: #4CAF50; /* Green background */
+	  cursor: pointer; /* Cursor on hover */
+	}
+
+	.slider::-moz-range-thumb {
+	  width: 25px; /* Set a specific slider handle width */
+	  height: 25px; /* Slider handle height */
+	  background: #4CAF50; /* Green background */
+	  cursor: pointer; /* Cursor on hover */
+	}
+	#locationInfo:hover
+	{
+		cursor: pointer;
+		text-decoration: underline;
+	}	
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xl-12">
+			<h5 class="text-info">Selecting all options will increased rent properties.</h5>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="checkbox">
+				<label><input type="checkbox" name="school" value="school"> School</label>
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" name="market" value="market"> Market</label>
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" name="hospital" value="hospital"> Hospital</label>
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" name="hospital" value="hospital" id="displayLocations"> Location</label>
+				<div class="container" id="showLocations" style="visibility: hidden;">
+					<label><input type="checkbox" name="Hadapsar" value="hadapsar"> Hadapsar</label>
+					<label><input type="checkbox" name="Hinjewadi" value="hinjewadi"> Hinjewadi</label>
+					<label><input type="checkbox" name="Nanded" value="nanded"> Nanded</label>
+				</div>
+			</div>
+			<div class="container" id="residenceByLocation">
+				<h5>Distance from the Location. <small><p id="locationInfo" style="color: orange;display: inline-block;font-size: 12px;">More Info</p></small></h5>
+				<div class="form-group">
+					<label for="location">Location:</label>
+					<input type="text" name="location" class="form-control" style="width: 35%">
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" name="3km" value="3"> 3km</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" name="5km" value="5"> 5km</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" name="7km" value="7"> 7km</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" name="10km" value="10"> 10km</label>
+				</div>
+			</div>
+<!-- 			<div class="slidecontainer">
+ 				<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+			</div> -->
+			<button class="btn btn-outline-info" type="submit">Submit</button>
+		</div>
+	</div>
+</div>
+
+<div id="locationInfoModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-6">
+								<p class="text-info">Location Info</p>
+							</div>
+							<div class="col-lg-6">
+								<button type="button" class="close" data-dismiss="modal">&#10006;</button>
+							</div>
+						</div>
+					</div>					
+				</div>
+				<div class="modal-body text-secondary">
+					<p>1.You can enter the location of your office or college in the textbox.</p>
+					<p>2.Based upon your location and distance selected, we will send you properties which satisfy this criteria.</p>
+					<p>3.For example, if your college location is near Hinjewadi, and you have selected distance of 5kms, then will share only those properties which come under 5kms from your college.</p>
+					<p>4.Another important criteria is budget. Using that can also help you to finalize the property.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#displayLocations").change(function(){
+			if(this.checked)
+			{
+				$("#showLocations").css("visibility","visible")
+			}
+			else
+			{
+				$("#showLocations").css("visibility","hidden")
+			}
+		})
+		$("#locationInfo").on("click",function(e){
+			$("#locationInfoModal").modal({
+				show:true
+			})
+		})
+	})
+</script>
+
+
+
+{% endblock %}

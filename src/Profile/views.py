@@ -82,3 +82,14 @@ def updateProfile(request):
 	}
 
 	return render(request,template,context)
+
+@login_required(login_url="login")
+def preferences(request):
+
+	template = "selectPreference.html"
+
+	context = {}
+
+
+	return render(request,template,context)
+

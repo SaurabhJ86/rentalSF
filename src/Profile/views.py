@@ -13,11 +13,14 @@ def signup(request):
 	if request.method == "POST":
 		form = SignUpForm(request.POST)
 		if form.is_valid():
+			next_url = request.GET.get("next","")
 			form.save()
 			username = form.cleaned_data.get("username")
 			raw_password = form.cleaned_data.get("password1")
 			user = authenticate(username=username,password=raw_password)
 			login(request,user)
+			if next_url:
+				return redirect(next_url)
 			return redirect('listProperty')
 
 	else:

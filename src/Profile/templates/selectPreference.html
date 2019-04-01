@@ -80,8 +80,8 @@
 			<div class="container" id="residenceByLocation">
 				<h5>Distance from the Location. <small><p id="locationInfo" style="color: orange;display: inline-block;font-size: 12px;">More Info</p></small></h5>
 				<div class="form-group">
-					<label for="location">Location:</label>
-					<input type="text" name="location" class="form-control" style="width: 35%">
+					<label for="location">Location:<small class="text-muted">For Pune Only.</small></label>
+					<input type="text" name="location" class="form-control" id="enterLocation" style="width: 35%">
 				</div>
 				<div class="checkbox">
 					<label><input type="checkbox" name="3km" value="3"> 3km</label>
@@ -95,6 +95,22 @@
 				<div class="checkbox">
 					<label><input type="checkbox" name="10km" value="10"> 10km</label>
 				</div>
+			</div>
+			<br>
+			<div class="container">
+				<h5>Price Range</h5>
+				<div class="input-group mb-3" style="width: 15%" style="display: inline-block;">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">&#8377</span>
+				  </div>
+				  <input type="text" class="form-control" aria-label="Amount (to the nearest rupee)" placeholder="5000">
+				</div>
+				<div class="input-group mb-3" style="width: 15%">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">&#8377</span>
+				  </div>
+				  <input type="text" class="form-control" aria-label="Amount (to the nearest rupee)" placeholder="10000">
+				</div>				
 			</div>
 <!-- 			<div class="slidecontainer">
  				<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
@@ -131,6 +147,17 @@
 	</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+	function initialize() {
+		var southWest = new google.maps.LatLng( 18.4604, 73.1567 );
+		var northEast = new google.maps.LatLng( 18.7004, 74.9176 );
+		var puneBound = new google.maps.LatLngBounds( southWest,northEast );
+		var input = document.getElementById('enterLocation');
+		var autocomplete = new google.maps.places.Autocomplete(input,{strictBounds:true});
+		autocomplete.setBounds(puneBound)			
+	}
+</script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#displayLocations").change(function(){
@@ -147,10 +174,12 @@
 			$("#locationInfoModal").modal({
 				show:true
 			})
-		})
+		});
 	})
 </script>
-
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dEZoCwk6kXXaXwPOVgnVrjIX6EzhFfE&libraries=places&callback=initialize">
+</script>
 
 
 {% endblock %}

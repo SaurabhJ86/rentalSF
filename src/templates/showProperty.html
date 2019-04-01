@@ -209,10 +209,10 @@
 						<div class="col-xl-12">
 							<div class="btn-toolbar">
 								<div class="btn-group">
-									<a href="{% url 'login' %}" class="btn btn-outline-info">Login</a>	
+									<a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-info">Login</a>	
 								</div>
 								<div class="btn-group">
-									<a href="{% url 'Profile:profile-signup' %}" class="btn btn-outline-info">Register</a>	
+									<a href="{% url 'Profile:profile-signup' %}?next={{request.path }}" class="btn btn-outline-info">Register</a>	
 								</div>
 							</div>
 						</div>

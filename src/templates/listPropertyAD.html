@@ -38,11 +38,10 @@
 	</div>
 
 {% else %}
-	{% if properties %}
 	<br>
-	<div class="container" id="adContainer">
+	<div class="container text-center" id="adContainer">
 		<div class="row">
-			<div class="col-sm-10">
+			<div class="col-sm-10 col-xl-10">
 				<nav class="navbar navbar-expand-lg navbar-light navbar-light" style="background-color: #e3f2fd;">
 					  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#roomTypes" aria-controls="roomTypes" aria-expanded="false" aria-label="Toggle navigation">
 					    <span class="navbar-toggler-icon"></span>
@@ -64,17 +63,16 @@
 				  		<ul class="navbar-nav ml-auto">
 				  			<li class="nav-item">
 						     	<a class="nav-link" id="removeFilters" href="#" style="visibility: hidden;color: #7c040c">Clear Filters</a>
-						     </li>  
+						     </li>       
 				  		</ul>
 				  	</div>
 				</nav>				
 			</div>
 		</div>
 	</div>
+	{% if properties %}
 	<div class="container" id="propContainer">
 		<div class="row">
-			<a href="#" class="fill-div"></a>
-			<!-- <div class="col-sm-6"> -->
 			{% for property in properties %}
 				<div class="col-sm-5">
 					<br>
@@ -102,11 +100,18 @@
 					</div>
 				</div>
 			{% endfor %}
-			<!-- </div> -->
 		</div>
 	</div>
 	{% else %}
-		<h3>No Property is available right now.</h3>
+		<div class="container text-center" style="left: 50%;">
+			<div class="row">
+				<div class="col-xl-12">
+					<br>
+					<p>No Property is available for this filter. Please click on Clear Filters.</p>
+					<img src="https://img.icons8.com/bubbles/500/000000/file.png">
+				</div>
+			</div>
+		</div>
 	{% endif %}
 
 {% endif %}

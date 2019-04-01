@@ -87,8 +87,9 @@ def createListPropertyAD(request):
 
 	get_room_type = request.GET.get("q")
 	if get_room_type:
-		# get_properties = PropertyListADCreation.objects.filter(bed_available=1)
-		get_properties = get_properties.filter(room_type=get_room_type)
+		# You can add more filters as you go on.
+		# get_properties = get_properties.filter(room_type=get_room_type,is_active=True)
+		get_properties = get_properties.filter(room_type=get_room_type).filter(is_active=True)
 
 	form = PropertyListADForm(request.POST or None)
 	if form.is_valid():

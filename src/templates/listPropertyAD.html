@@ -57,8 +57,15 @@
 						     </li>
 						     <li class="nav-item active">
 						        <a class="nav-link" href="{% url 'listPropertyUser' %}?q=flat">House/Flat</a>
-						     </li>   
+						     </li> 
 				   		</ul>
+				  	</div>			  	
+				  	<div class="collapse navbar-collapse">
+				  		<ul class="navbar-nav ml-auto">
+				  			<li class="nav-item">
+						     	<a class="nav-link" id="removeFilters" href="#" style="visibility: hidden;color: #7c040c">Clear Filters</a>
+						     </li>  
+				  		</ul>
 				  	</div>
 				</nav>				
 			</div>
@@ -69,33 +76,31 @@
 			<a href="#" class="fill-div"></a>
 			<!-- <div class="col-sm-6"> -->
 			{% for property in properties %}
-				{% if property.is_active %}
-					<div class="col-sm-5">
-						<br>
-						<div class="card card-block" id="propCard" onclick="location.href='/listProperty/{{ property.id }}'">
-							{% if property.property_image %}
-								<img class="card-img-top" src="{{ property.property_image.url }}">
-							{% endif %}
-							<div class="card-body">
-								<p>{{ property.property_type }}</p>
-								<p>For: {{ property.gender }}</p>
-								<p>Area: {{ property.area }}</p>
-								<p>{{ property.furnished }} {% if property.room_type == "shared" %} | {% if property.bed_available == 1 %} {{ property.bed_available }} bed available {% else %} {{ property.bed_available }} beds available {% endif %} {% endif %}</p>
-							</div>
-							<div class="card-footer">
-								<div class="row">
-									<div class="col-sm-6">
-										<p>Rent: <strong>{{ property.rent }}</strong></p>
-									</div>
-									<div class="col-sm-6">
-										<p>Deposit: <strong>{{ property.deposit }}</strong></p>
-									</div>
+				<div class="col-sm-5">
+					<br>
+					<div class="card card-block" id="propCard" onclick="location.href='/listProperty/{{ property.id }}'">
+						{% if property.property_image %}
+							<img class="card-img-top" src="{{ property.property_image.url }}">
+						{% endif %}
+						<div class="card-body">
+							<p>{{ property.property_type }}</p>
+							<p>For: {{ property.gender }}</p>
+							<p>Area: {{ property.area }}</p>
+							<p>{{ property.furnished }} {% if property.room_type == "shared" %} | {% if property.bed_available == 1 %} {{ property.bed_available }} bed available {% else %} {{ property.bed_available }} beds available {% endif %} {% endif %}</p>
+						</div>
+						<div class="card-footer">
+							<div class="row">
+								<div class="col-sm-6">
+									<p>Rent: <strong>{{ property.rent }}</strong></p>
 								</div>
-															
+								<div class="col-sm-6">
+									<p>Deposit: <strong>{{ property.deposit }}</strong></p>
+								</div>
 							</div>
+														
 						</div>
 					</div>
-				{% endif %}
+				</div>
 			{% endfor %}
 			<!-- </div> -->
 		</div>
@@ -110,6 +115,21 @@
 <br>
 <br>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		const url = "{{ request.path }}"
+		const urlQuery = new URLSearchParams(window.location.search)
+		const query = urlQuery.get("q")
+		if (query)
+		{
+			$("#removeFilters").css("visibility","visible")
+		}
+		$("#removeFilters").on("click",function(e){
+			e.preventDefault();
+			window.location.href = url
 
+		})
+	})
+</script>
 
 {% endblock %}

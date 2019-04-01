@@ -45,6 +45,22 @@ class SavePropertyTracker(models.Model):
 	def __str__(self):
 		self.profile.user.username
 
+class ProfilePreference(models.Model):
+
+	profile 				= models.ForeignKey(Profile,on_delete=models.CASCADE)
+	school					= models.BooleanField(default=False)
+	market					= models.BooleanField(default=False)
+	hospital				= models.BooleanField(default=False)
+	location				= models.CharField(max_length=120)
+	distance_from_location 	= models.IntegerField()
+	price_start_range 		= models.CharField(max_length=5)
+	price_end_range 		= models.CharField(max_length=5)
+
+
+	def __str__(self):
+		return self.profile.user.username
+
+
 @receiver(post_save,sender=User)
 def create_user_profile(sender,instance,created,**kwargs):
 	if created:

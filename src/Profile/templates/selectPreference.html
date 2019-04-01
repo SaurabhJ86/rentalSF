@@ -83,17 +83,17 @@
 					<label for="location">Location:<small class="text-muted">For Pune Only.</small></label>
 					<input type="text" name="location" class="form-control" id="enterLocation" style="width: 35%">
 				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" name="3km" value="3"> 3km</label>
+				<div class="radio">
+					<label><input type="radio" name="distance" value="3"> 3km</label>
 				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" name="5km" value="5"> 5km</label>
+				<div class="radio">
+					<label><input type="radio" name="distance" value="5"> 5km</label>
 				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" name="7km" value="7"> 7km</label>
+				<div class="radio">
+					<label><input type="radio" name="distance" value="7"> 7km</label>
 				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" name="10km" value="10"> 10km</label>
+				<div class="radio">
+					<label><input type="radio" name="distance" value="10"> 10km</label>
 				</div>
 			</div>
 			<br>
@@ -115,10 +115,16 @@
 <!-- 			<div class="slidecontainer">
  				<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
 			</div> -->
-			<button class="btn btn-outline-info" type="submit">Submit</button>
+			<div class="container">
+				<button class="btn btn-outline-info" type="submit">Submit</button>	
+			</div>
+			
 		</div>
 	</div>
 </div>
+
+<br>
+<br>
 
 <div id="locationInfoModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">

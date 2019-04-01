@@ -89,6 +89,8 @@ def updateProfile(request):
 @login_required(login_url="login")
 def preferences(request):
 
+	if request.method == "POST":
+		print("Do something about the form")
 	template = "selectPreference.html"
 
 	context = {}

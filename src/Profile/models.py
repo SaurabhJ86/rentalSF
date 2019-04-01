@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -40,7 +42,7 @@ class SavePropertyTracker(models.Model):
 	savedProperty 	= models.ForeignKey(PropertyListADCreation,on_delete=models.CASCADE)
 	profile 		= models.ForeignKey(Profile,on_delete=models.CASCADE)
 	timestamp 		= models.DateTimeField(auto_now=True)
-	updated 		= models.DateTimeField(auto_now_add=True)
+	updated 		= models.DateTimeField(auto_now_add=True,blank=True)
 
 	def __str__(self):
 		self.profile.user.username
@@ -55,6 +57,8 @@ class ProfilePreference(models.Model):
 	distance_from_location 	= models.IntegerField()
 	price_start_range 		= models.CharField(max_length=5)
 	price_end_range 		= models.CharField(max_length=5)
+	timestamp 				= models.DateTimeField(auto_now=True)
+	updated 				= models.DateTimeField(default=datetime.now,blank=True)
 
 
 	def __str__(self):

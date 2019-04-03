@@ -29,3 +29,22 @@ class UpdateUserForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ['username','first_name','last_name','email']
+
+
+
+class ProfilePreferenceForm(forms.ModelForm):
+
+	class Meta:
+		model = ProfilePreference
+		fields = ["location","distance_from_location","school","market","hospital"]
+		labels 	= {
+			"location": "Search for Location",
+		}
+		help_texts = {
+			'location': "For Pune only.",
+		}
+
+	def __init__(self,*args,**kwargs):
+		super(ProfilePreferenceForm,self).__init__(*args,**kwargs)
+		self.fields['location'].widget.attrs['id'] 						= 'enterLocation'
+		

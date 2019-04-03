@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -44,7 +44,11 @@
 	{
 		cursor: pointer;
 		text-decoration: underline;
-	}	
+	}
+	#div_id_location > label, #div_id_distance_from_location > label, #div_id_school, #div_id_market
+	{
+		float: left;
+	}
 </style>
 
 <div class="container">
@@ -54,6 +58,32 @@
 		</div>
 	</div>
 </div>
+
+<div class="container text-center">
+	<div class="row">
+		<div class="col-xl-6 offset-xl-3">
+			<form class="form-group" method="POST">{% csrf_token %}
+				{{ form|crispy}}
+				<br>
+				<h5>Price Range</h5>
+				<div class="input-group mb-3" style="width: 25%">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">&#8377</span>
+				  </div>
+				  <input type="text" class="form-control" aria-label="Amount (to the nearest rupee)" placeholder="5000">
+				</div>
+				<div class="input-group mb-3" style="width: 25%">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">&#8377</span>
+				  </div>
+				  <input type="text" class="form-control" aria-label="Amount (to the nearest rupee)" placeholder="10000">
+				</div>				
+				<button class="btn btn-outline-info" type="submit">Submit</button>
+			</form>			
+		</div>
+	</div>
+</div>
+
 
 <br>
 

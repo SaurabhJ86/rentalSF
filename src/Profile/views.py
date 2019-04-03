@@ -5,7 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 
-from .forms import SignUpForm,UpdateProfileForm,UpdateUserForm
+from .forms import (
+		ProfilePreferenceForm,
+		SignUpForm,
+		UpdateProfileForm,
+		UpdateUserForm
+	)
 from .models import Profile
 
 def signup(request):
@@ -90,10 +95,16 @@ def updateProfile(request):
 def preferences(request):
 
 	if request.method == "POST":
-		print("Do something about the form")
+		form = ProfilePreferenceForm(request.POST)
+		if form.is_valid():
+			print("Form is coming")
+	else:
+		form = ProfilePreferenceForm()
 	template = "selectPreference.html"
 
-	context = {}
+	context = {
+		"form":form
+	}
 
 
 	return render(request,template,context)
